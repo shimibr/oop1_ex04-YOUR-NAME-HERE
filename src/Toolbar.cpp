@@ -1,26 +1,37 @@
+#pragma once
+
 #include "Toolbar.h"
 
-Toolbar::Toolbar()
+Toolbar::Toolbar(const std::string& filename) 
 {
-	m_objects.push_back(Object(0, 0, ' '));
-	m_objects.push_back(Object(0, 0, '/'));
-	m_objects.push_back(Object(0, 0, '!'));
-	m_objects.push_back(Object(0, 0, 'D'));
-	m_objects.push_back(Object(0, 0, '#'));
-	m_objects.push_back(Object(0, 0, '@'));
+    loadFromFile(filename);
 }
-//==========================
-int Toolbar::getSize() const
+//==================================
+void Toolbar::loadFromFile(const std::string& filename)
 {
-	return m_objects.size();
-}
-//==========================
+    std::ifstream file(filename);
 
-std::ostream& operator<<(std::ostream& os, const Toolbar& other)
-{
-	for (int i = 0; i < other.m_objects.size(); ++i)
-	{
-		os << other.m_objects[i];
-	}
-	return os << '\n';
+
+    int x = 0;
+    char ch = ' ';
+
+    // קורא כל תו בנפרד מתוך הקובץ
+    while (file.get(ch)) {
+        // מתעלמים מתו רווח או תו ריק
+        if (ch == ' ' || ch == '\n') {
+            continue;
+        }
+
+        
+        Object obj(x, 0, ch); 
+        m_objects.push_back(obj);
+        x += 50; 
+    }
+
+    file.close();
+}
+
+//=================================
+const std::vector<Object>& Toolbar::getObjects() const {
+    return m_objects;
 }
