@@ -2,6 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 #include "Location.h"
+#include <vector>
+#include <string>
+#include <fstream>
+#include <iostream>
 #include <ostream>
 
 class Object
@@ -17,7 +21,4 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	char m_type;
-
-
-
 };

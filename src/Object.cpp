@@ -6,7 +6,7 @@ Object::Object()
 	:Object(0,0, ' ') { }
 //============================
 Object::Object(int x, int y, char type)
-	:m_location(x, y), m_type(type)
+	:m_location{x, y}, m_type{type}
 {
 	loadTexture();
 }
@@ -18,17 +18,18 @@ const sf::Sprite& Object::getSprite() const
 //============================
 void Object::loadTexture()
 {
-
  	if(m_type == '/')
-		m_texture.loadFromFile("../resources/robot.png");
+		m_texture.loadFromFile("robot.png");
+	else if(m_type == ' ')
+		m_texture.loadFromFile("delete.png");
 	else if (m_type == '!')
-		m_texture.loadFromFile("../resources/guard.png");
+		m_texture.loadFromFile("guard.png");
 	else if (m_type == 'D')
-		m_texture.loadFromFile("../resources/door.png");
+		m_texture.loadFromFile("door.png");
 	else if (m_type == '@')
-		m_texture.loadFromFile("../resources/stone.png");
+		m_texture.loadFromFile("stone.png");
 	else if (m_type == '#')
-		m_texture.loadFromFile("../resources/wall.png");
+		m_texture.loadFromFile("wall.png");
 
 	m_sprite.setTexture(m_texture);
 	m_sprite.setPosition(static_cast<float>(m_location.col), static_cast<float>(m_location.row));

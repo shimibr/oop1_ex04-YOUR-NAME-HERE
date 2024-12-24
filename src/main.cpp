@@ -5,12 +5,9 @@
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Toolbar Example");
-
-    // יצירת Toolbar וטעינת האובייקטים מתוך toolbar.txt
-    //Toolbar toolbar("../resources/toolbar.txt");
-    Object o1(0, 0, '!');
-
-    // לולאת משחק
+ 
+    Toolbar toolbar("toolbar.txt");
+   
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -18,16 +15,12 @@ int main() {
                 window.close();
         }
 
-        // ניקוי המסך
         window.clear();
 
-        // ציור כל האובייקטים ב-toolbar
-        //for (const auto& obj : toolbar.getObjects()) {
-        //    window.draw(obj.getSprite());
-        //}
-        window.draw(o1.getSprite());
+        for (const auto& obj : toolbar.getObjects()) {
+            window.draw(obj.getSprite());
+        }
 
-        // הצגת הציור על המסך
         window.display();
     }
 
