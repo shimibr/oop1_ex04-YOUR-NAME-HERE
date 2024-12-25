@@ -1,17 +1,17 @@
 #pragma once
 
 #include "Object.h"
-#include "vector"
 
-class Toolbar
+class Toolbar 
 {
 public:
-	Toolbar();
-	int getSize() const;
-	friend std::ostream& operator<<(std::ostream&, const Toolbar&);
-
+    Toolbar(const std::string& filename);
+    const std::vector<Object>& getObjects() const;
+    int getSize();
+    Object& operator()(const int i);
 
 private:
-	std::vector<Object> m_objects;
+    void loadFromFile(const std::string& filename);
 
+    std::vector<Object> m_objects;
 };

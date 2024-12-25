@@ -1,18 +1,22 @@
 #pragma once
 
-#include "Location.h"
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <string>
+#include <fstream>
+#include <iostream>
 #include <ostream>
 
 class Object
 {
 public:
 	Object();
-	Object(int x, int y, char type);
-	friend std::ostream& operator<<(std::ostream&, const Object&);
+	Object(char type, int i);
+	sf::Sprite& getSprite();
+	void loadTexture(int i);
 
 private:
-	Location m_location;
+	sf::Texture m_texture;
+	//sf::Sprite m_sprite;
 	char m_type;
-
-
 };

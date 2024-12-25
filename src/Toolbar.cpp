@@ -1,26 +1,45 @@
+#pragma once
+
 #include "Toolbar.h"
 
-Toolbar::Toolbar()
+Toolbar::Toolbar(const std::string& filename) 
 {
-	m_objects.push_back(Object(0, 0, ' '));
-	m_objects.push_back(Object(0, 0, '/'));
-	m_objects.push_back(Object(0, 0, '!'));
-	m_objects.push_back(Object(0, 0, 'D'));
-	m_objects.push_back(Object(0, 0, '#'));
-	m_objects.push_back(Object(0, 0, '@'));
+    loadFromFile(filename);
 }
-//==========================
-int Toolbar::getSize() const
+//==================================
+void Toolbar::loadFromFile(const std::string& filename)
 {
-	return m_objects.size();
-}
-//==========================
+    std::ifstream file(filename);
 
-std::ostream& operator<<(std::ostream& os, const Toolbar& other)
+    int i = 0;
+    char ch = ' ';
+
+    while (file.get(ch)) 
+    {
+        if (ch == '\n') 
+        {
+            continue;
+        }
+        
+        Object obj(ch, i); 
+        m_objects.push_back(obj); 
+        i++;
+    }
+
+    file.close();
+}
+//=================================
+const std::vector<Object>& Toolbar::getObjects() const 
 {
-	for (int i = 0; i < other.m_objects.size(); ++i)
-	{
-		os << other.m_objects[i];
-	}
-	return os << '\n';
+    return m_objects;
+}
+//==================================
+int Toolbar::getSize()
+{
+    return m_objects.size();
+}
+//==================================
+Object& Toolbar::operator()(int i) 
+{
+    return m_objects[i];
 }
