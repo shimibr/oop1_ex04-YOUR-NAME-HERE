@@ -11,7 +11,7 @@ void Toolbar::loadFromFile(const std::string& filename)
 {
     std::ifstream file(filename);
 
-    int y = 0;
+    int i = 0;
     char ch = ' ';
 
     while (file.get(ch)) 
@@ -21,9 +21,9 @@ void Toolbar::loadFromFile(const std::string& filename)
             continue;
         }
         
-        Object obj(0, y, ch); 
-        m_objects.push_back(obj);
-        y += 50; 
+        Object obj(ch, i); 
+        m_objects.push_back(obj); 
+        i++;
     }
 
     file.close();
@@ -32,4 +32,14 @@ void Toolbar::loadFromFile(const std::string& filename)
 const std::vector<Object>& Toolbar::getObjects() const 
 {
     return m_objects;
+}
+//==================================
+int Toolbar::getSize()
+{
+    return m_objects.size();
+}
+//==================================
+Object& Toolbar::operator()(int i) 
+{
+    return m_objects[i];
 }

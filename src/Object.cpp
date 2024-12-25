@@ -3,20 +3,21 @@
 #include "Object.h"
 
 Object::Object()
-	:Object(0,0, ' ') { }
+	:Object(' ',0) { }
 //============================
-Object::Object(int x, int y, char type)
-	:m_location{x, y}, m_type{type}
+Object::Object(char type, int i)
+	:m_type{type}
 {
-	loadTexture();
+	loadTexture(i);
 }
 //============================
-const sf::Sprite& Object::getSprite() const
+sf::Sprite& Object::getSprite()
 {
+	m_sprite.setTexture(m_texture); 
 	return m_sprite;
 }
 //============================
-void Object::loadTexture()
+void Object::loadTexture(int i)
 {
  	if(m_type == '/')
 		m_texture.loadFromFile("robot.png");
@@ -30,7 +31,6 @@ void Object::loadTexture()
 		m_texture.loadFromFile("stone.png");
 	else if (m_type == '#')
 		m_texture.loadFromFile("wall.png");
-
-	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(static_cast<float>(m_location.col), static_cast<float>(m_location.row));
+	
+	m_sprite.setPosition(i*50,0);
 }

@@ -17,8 +17,10 @@ int main() {
 
         window.clear();
 
-        for (const auto& obj : toolbar.getObjects()) {
-            window.draw(obj.getSprite());
+        for (int i = 0; i < toolbar.getSize(); i++)
+        {
+            //toolbar(i).getSprite().setPosition(50*i,0);
+            window.draw(toolbar(i).getSprite());
         }
 
         window.display();
