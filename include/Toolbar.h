@@ -5,7 +5,7 @@
 class Toolbar 
 {
 public:
-    Toolbar(const std::string& filename);
+    Toolbar();
     const std::vector<Object>& getObjects() const;
     int getSize();
     Object& operator()(const int i);

@@ -11,10 +11,9 @@ Object::Object(char type, int i)
 	loadTexture(i);
 }
 //============================
-sf::Sprite& Object::getSprite()
-{
-	m_sprite.setTexture(m_texture); 
-	return m_sprite;
+sf::Texture& Object::getTexture()
+{ 
+	return m_texture;
 }
 //============================
 void Object::loadTexture(int i)
@@ -32,5 +31,5 @@ void Object::loadTexture(int i)
 	else if (m_type == '#')
 		m_texture.loadFromFile("wall.png");
 	
-	m_sprite.setPosition(i*50,0);
+	//m_sprite.setPosition(i*50,0);
 }

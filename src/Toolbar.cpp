@@ -2,9 +2,9 @@
 
 #include "Toolbar.h"
 
-Toolbar::Toolbar(const std::string& filename) 
+Toolbar::Toolbar() 
 {
-    loadFromFile(filename);
+    loadFromFile("txt.Toolbar");
 }
 //==================================
 void Toolbar::loadFromFile(const std::string& filename)

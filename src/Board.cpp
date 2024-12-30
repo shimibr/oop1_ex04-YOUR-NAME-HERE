@@ -3,7 +3,7 @@
 
 
 Board::Board(const int i, const int j)
-	: m_window(sf::VideoMode(i*50,(j+1)*50), "Window example")
+	: m_window(sf::VideoMode(i*50,(j+1)*50), "Window example") 
 {
 	
 }
@@ -41,7 +41,7 @@ void Board::ran()
 	}
 }
 //=======================================
-void Board::insert_objects(Object& object)
+void Board::insert_objects(Loc_Object& object)
 {
 	while (m_window.isOpen())
 	{
@@ -63,7 +63,10 @@ void Board::update_window()
 	m_window.clear();
 	for (int i = 0; i < m_objects.size(); i++)
 	{
-		m_window.draw(m_objects[i]);
+		sf::Sprite sprite;
+		sprite.setTexture(m_objects[i].getTexture());
+		sprite.setPosition(m_objects[i].getLocation().col * 50, m_objects[i].getLocation().row * 50);
 	}
 	m_window.display();
 }
+

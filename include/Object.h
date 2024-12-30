@@ -12,7 +12,7 @@ class Object
 public:
 	Object();
 	Object(char type, int i);
-	sf::Sprite& getSprite();
+	sf::Texture& getTexture();
 	void loadTexture(int i);
 
 private:

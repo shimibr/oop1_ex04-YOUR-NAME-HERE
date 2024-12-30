@@ -1,5 +1,6 @@
 
 #include "Toolbar.h"
+#include "Loc_Object.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -10,8 +11,8 @@ public:
 	void ran();
 
 private:
-	void insert_objects(Object& object);
+	void insert_objects(Loc_Object& object);
 	void update_window();
-	std::vector<Object> m_objects;
+	std::vector<Loc_Object> m_objects;
 	sf::RenderWindow m_window;
 };

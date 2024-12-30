@@ -7,6 +7,8 @@ class Loc_Object
 {
 public:
 	Loc_Object(int x, int y, Object* object);
+	sf::Texture& getTexture();
+	Location getLocation();
 
 private:
 	Location m_location;
