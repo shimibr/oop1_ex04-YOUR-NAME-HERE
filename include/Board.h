@@ -1,7 +1,12 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
 
 #include "Toolbar.h"
 #include "Loc_Object.h"
-#include <SFML/Graphics.hpp>
 
 
 class Board :public Toolbar
@@ -11,8 +16,9 @@ public:
 	void ran();
 
 private:
-	void insert_objects(Loc_Object& object);
+	void insert_objects(Object& object);
 	void update_window();
-	std::vector<Loc_Object> m_objects;
+	void print_toolbar();
+	std::vector<Loc_Object> m_LocObjects;
 	sf::RenderWindow m_window;
 };

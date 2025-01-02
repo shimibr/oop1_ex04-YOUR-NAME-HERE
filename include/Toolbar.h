@@ -6,9 +6,9 @@ class Toolbar
 {
 public:
     Toolbar();
-    const std::vector<Object>& getObjects() const;
+    Object& getObject(const int i) ;
     int getSize();
-    Object& operator()(const int i);
+    
 
 private:
     void loadFromFile(const std::string& filename);

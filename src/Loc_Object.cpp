@@ -1,5 +1,3 @@
-#include "Loc_Object.h"
-#include "Loc_Object.h"
 #pragma once
 
 #include "Loc_Object.h"

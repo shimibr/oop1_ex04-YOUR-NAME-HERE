@@ -4,7 +4,7 @@
 
 Toolbar::Toolbar() 
 {
-    loadFromFile("txt.Toolbar");
+    loadFromFile("Toolbar.txt");
 }
 //==================================
 void Toolbar::loadFromFile(const std::string& filename)
@@ -29,9 +29,9 @@ void Toolbar::loadFromFile(const std::string& filename)
     file.close();
 }
 //=================================
-const std::vector<Object>& Toolbar::getObjects() const 
+Object& Toolbar::getObject(const int i)  
 {
-    return m_objects;
+    return m_objects[i];
 }
 //==================================
 int Toolbar::getSize()
@@ -39,7 +39,3 @@ int Toolbar::getSize()
     return m_objects.size();
 }
 //==================================
-Object& Toolbar::operator()(int i) 
-{
-    return m_objects[i];
-}
