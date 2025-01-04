@@ -19,6 +19,8 @@ private:
 	void insert_objects(Object& object);
 	void update_window();
 	void print_toolbar();
+	void print_window();
+	
 	std::vector<Loc_Object> m_LocObjects;
 	sf::RenderWindow m_window;
 };
