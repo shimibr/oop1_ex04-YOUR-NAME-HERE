@@ -16,7 +16,6 @@ public:
 	void ran();
 
 private:
-	void insert_objects(Object& object);
 	void update_window();
 	void print_toolbar();
 	void print_window();

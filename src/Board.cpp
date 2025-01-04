@@ -10,13 +10,13 @@ Board::Board(const int i, const int j)
 //=============================
 void Board::ran()
 {
-	
+	Object* object = &getObject(0);
 
 	while (m_window.isOpen())
 	{
 		print_window();
 		sf::Event event;
-		if(m_window.pollEvent(event))
+		while (m_window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed) 
 				m_window.close();
@@ -30,10 +30,15 @@ void Board::ran()
 				if (mousePosition.y >= 0 && mousePosition.y < 50)
 				{
 					int index = mousePosition.x / 50;
-					if (index >= 0 && index < getSize())
-						insert_objects(getObject(index));
-					
+					object = &getObject(index);
 				}
+				else if (mousePosition.y >= 50 && mousePosition.y < m_window.getSize().y)
+				{
+					int x = mousePosition.x / 50, y = mousePosition.y / 50;
+					Loc_Object tamp(y, x, object);
+					m_LocObjects.push_back(tamp);
+				}
+
 			}
 
 		}
@@ -43,35 +48,6 @@ void Board::ran()
 	}
 }
 //=======================================
-void Board::insert_objects(Object & object)
-{
-		while (m_window.isOpen())
-		{
-			print_window();
-			sf::Event event;
-			if(m_window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-					m_window.close();
-
-				else if (event.type == sf::Event::MouseButtonPressed)
-				{
-
-					sf::Vector2i mousePosition = sf::Mouse::getPosition(m_window);
-
-					if (mousePosition.y >= 50 && mousePosition.y < m_window.getSize().y)
-					{
-						int x = mousePosition.x / 50, y = mousePosition.y / 50;
-						Loc_Object tamp(y, x, &object);
-						m_LocObjects.push_back(tamp);
-					}
-
-
-				}
-			}
-		}
-}
-//==================================
 void Board::update_window()
 {
 	for (int i = 0; i < m_LocObjects.size(); i++)
