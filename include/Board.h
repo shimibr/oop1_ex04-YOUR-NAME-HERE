@@ -16,6 +16,7 @@ public:
 	void ran();
 
 private:
+	void deleteObject(const int x, const int y);
 	void update_window();
 	void print_toolbar();
 	void print_window();

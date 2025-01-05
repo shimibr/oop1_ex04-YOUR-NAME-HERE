@@ -14,10 +14,10 @@ public:
 	Object();
 	Object(char type, int i);
 	sf::Texture& getTexture();
+	char getType();
 	void loadTexture(int i);
 
 private:
 	sf::Texture m_texture;
-	//sf::Sprite m_sprite;
 	char m_type;
 };

@@ -30,20 +30,35 @@ void Board::ran()
 				if (mousePosition.y >= 0 && mousePosition.y < 50)
 				{
 					int index = mousePosition.x / 50;
+
+					if(index < getSize())
 					object = &getObject(index);
 				}
 				else if (mousePosition.y >= 50 && mousePosition.y < m_window.getSize().y)
 				{
 					int x = mousePosition.x / 50, y = mousePosition.y / 50;
-					Loc_Object tamp(y, x, object);
-					m_LocObjects.push_back(tamp);
-				}
+					if (object->getType() == ' ')
+						deleteObject(x,y);
+					else
+					{
+						Loc_Object tamp(y, x, object);
+						m_LocObjects.push_back(tamp);
 
+					}
+				}
 			}
 
 		}
 	
 
+
+	}
+}
+//=========================================
+void Board::deleteObject(const int x, const int y)
+{
+	for (int i = 0; i < m_LocObjects.size(); i++)
+	{
 
 	}
 }

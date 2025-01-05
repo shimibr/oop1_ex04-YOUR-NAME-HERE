@@ -15,6 +15,11 @@ sf::Texture& Object::getTexture()
 { 
 	return m_texture;
 }
+//=============================
+char Object::getType()
+{
+	return m_type;
+}
 //============================
 void Object::loadTexture(int i)
 {
