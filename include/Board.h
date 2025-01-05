@@ -17,10 +17,12 @@ public:
 
 private:
 	void deleteObject(const int x, const int y);
+	//bool isOccupied(const int x, const int y);
 	void update_window();
 	void print_toolbar();
 	void print_window();
 	
 	std::vector<Loc_Object> m_LocObjects;
 	sf::RenderWindow m_window;
+	Loc_Object* m_IsRobot;
 };

@@ -14,3 +14,9 @@ Location Loc_Object::getLocation()
 {
 	return m_location;
 }
+//================================
+void Loc_Object::setLocation(const int x, const int y)
+{
+	m_location.row = y;
+	m_location.col = x;
+}

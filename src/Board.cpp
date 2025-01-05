@@ -39,11 +39,12 @@ void Board::ran()
 					int x = mousePosition.x / 50, y = mousePosition.y / 50;
 					if (object->getType() == ' ')
 						deleteObject(x,y);
-					else
+					
+					else 
 					{
+						deleteObject(x, y);
 						Loc_Object tamp(y, x, object);
 						m_LocObjects.push_back(tamp);
-
 					}
 				}
 			}
@@ -57,9 +58,13 @@ void Board::ran()
 //=========================================
 void Board::deleteObject(const int x, const int y)
 {
-	for (int i = 0; i < m_LocObjects.size(); i++)
+	for (auto it = m_LocObjects.begin(); it != m_LocObjects.end(); ++it)
 	{
-
+		if (it->getLocation().row == y && it->getLocation().col == x)
+		{
+			m_LocObjects.erase(it);
+			break;
+		}
 	}
 }
 //=======================================
