@@ -1,12 +1,12 @@
 #pragma once
-#include "Board.h"
+#include "Controler.h"
 #include <SFML/Graphics.hpp>
 #include "Toolbar.h"
 
 int main() {
 
-    Board x(10, 10);
-    x.ran();
+    Controler x;
+    x.run();
     //sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Toolbar Example");
  
     //Toolbar toolbar("toolbar.txt");

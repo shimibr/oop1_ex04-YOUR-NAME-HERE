@@ -2,11 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <vector>
-#include <string>
-#include <fstream>
-#include <iostream>
-#include <ostream>
+//#include <vector>
+//#include <string>
+//#include <fstream>
+//#include <iostream>
+//#include <ostream>
 
 class Object
 {

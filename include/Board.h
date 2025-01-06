@@ -9,20 +9,18 @@
 #include "Loc_Object.h"
 
 
-class Board :public Toolbar
+class Board 
 {
 public:
-	Board(const int i = 0,const int j = 0);
+	Board();
 	void ran();
+	void print_window(sf::RenderWindow& window, Toolbar& toolbar);
+	void deleteObject(const int x, const int y);
+	void pushObject(const int x,const int y,Object* object);
 
 private:
-	void deleteObject(const int x, const int y);
-	//bool isOccupied(const int x, const int y);
-	void update_window();
-	void print_toolbar();
-	void print_window();
+	void update_window(sf::RenderWindow& window);
+	void print_toolbar(sf::RenderWindow& window, Toolbar& toolbar);
 	
 	std::vector<Loc_Object> m_LocObjects;
-	sf::RenderWindow m_window;
-	Loc_Object* m_IsRobot;
 };

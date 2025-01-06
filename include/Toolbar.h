@@ -1,6 +1,8 @@
 #pragma once
-
 #include "Object.h"
+#include <vector>
+#include <string>
+#include <fstream>
 
 class Toolbar 
 {
