@@ -6,11 +6,11 @@ Board::Board()
 {
 }
 //=========================================
-void Board::deleteObject(const int x, const int y)
+void Board::deleteObject(Location location)
 {
 	for (auto it = m_LocObjects.begin(); it != m_LocObjects.end(); ++it)
 	{
-		if (it->getLocation().row == y && it->getLocation().col == x)
+		if (it->getLocation().row == location.row  && it->getLocation().col == location.col)
 		{
 			m_LocObjects.erase(it);
 			break;
@@ -18,10 +18,10 @@ void Board::deleteObject(const int x, const int y)
 	}
 }
 //====================================================
-void Board::pushObject(const int x, const int y, Object* object)
+void Board::pushObject(Location location, Object* object)
 {
-	deleteObject(x, y);
-	Loc_Object tamp(y, x, object);
+	deleteObject(location);
+	Loc_Object tamp(location, object);
 	m_LocObjects.push_back(tamp);
 }
 //=======================================

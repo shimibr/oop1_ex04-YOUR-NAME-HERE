@@ -13,10 +13,9 @@ class Board
 {
 public:
 	Board();
-	void ran();
 	void print_window(sf::RenderWindow& window, Toolbar& toolbar);
-	void deleteObject(const int x, const int y);
-	void pushObject(const int x,const int y,Object* object);
+	void deleteObject(Location location);
+	void pushObject(Location location, Object* object);
 
 private:
 	void update_window(sf::RenderWindow& window);
