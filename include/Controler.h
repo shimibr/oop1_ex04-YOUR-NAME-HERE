@@ -1,10 +1,7 @@
 #pragma once
 #include "Board.h"
 #include "Toolbar.h"
-struct LoadFile {
-    bool Get_From_File(Char_Location Char_Location);
-};
-
+#include "LoadFile.h"
 
 
 class Controler

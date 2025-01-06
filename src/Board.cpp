@@ -48,10 +48,30 @@ void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)
 	}
 }
 //======================================
+void Board::print_background(sf::RenderWindow& window)
+{
+	sf::Texture texture;
+	texture.loadFromFile("background.png");
+	
+
+
+	for (int row = 1; row < window.getSize().y; ++row)
+	{
+		for (int col = 0; col < window.getSize().x; ++col)
+		{
+			sf::Sprite sprite;
+			sprite.setTexture(texture);
+			sprite.setPosition(col * 50, row * 50); 
+			window.draw(sprite);
+		}
+	}
+}
+//======================================
 void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar)
 {
 	window.clear();
 	print_toolbar(window, toolbar);
+	print_background(window);
 	update_window(window);
 	window.display();
 }

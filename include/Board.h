@@ -20,6 +20,8 @@ public:
 private:
 	void update_window(sf::RenderWindow& window);
 	void print_toolbar(sf::RenderWindow& window, Toolbar& toolbar);
+
+	void print_background(sf::RenderWindow& window);
 	
 	std::vector<Loc_Object> m_LocObjects;
 };

@@ -9,13 +9,28 @@ Controler::Controler()
 //===========================
 void Controler::run()
 {
-
 	int i, j;
-	std::cin >> i >> j;
+	if (!m_loadFile.get_is_file())
+	{
+		std::cout << "Please enter the window height: ";
+		std::cin >> i;
+		std::cout << "Please enter the window width: ";
+		std::cin >> j;
+		std::cout << "excellent! The window is already up" << std::endl;
+	}
+	else
+	{
+		std::cout << "Please wait - we are already continuing the editing :) " << std::endl;
+
+		i = m_loadFile.get_row_size();
+		j = m_loadFile.get_col_size();
+	}
+
 	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * m_sizeObject, (j + 1) * m_sizeObject), "Window example");
-	fill_from_file();
 
 	Object* object = &m_toolbar.getObject(0);
+	fill_from_file();
+
 
 	while (window.isOpen())
 	{
@@ -63,7 +78,7 @@ void Controler::fill_from_file()
 {
 	Char_Location type_location;
 	Object* object;
-	while (m_loadFile.Get_From_File(type_location))
+	while (m_loadFile.get_from_file(type_location))
 	{
 		for (int i = 0; i < m_toolbar.getSize(); i++)
 		{
@@ -78,7 +93,7 @@ void Controler::init_Object(Object* object, Location location)
 {////////////////////////
 	if (object->getType() == ' ')
 	{
-		m_loadFile.Set_to_File();
+		//m_loadFile.set_to_file();
 		m_board.deleteObject(location);
 	}
 	else
