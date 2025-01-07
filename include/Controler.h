@@ -12,9 +12,9 @@ public:
 
 private:
     void fill_from_file();
-    void init_Object(Object* object,Location location);
+    void init_Object(Object* object, Location location);
     void loading_window(int &i, int &j);
-	void robot_control(const int col, const int row);
+	void robot_control(const int row, const int col, Object& Tdelete);
 
     const int m_sizeObject;
     LoadFile m_loadFile;

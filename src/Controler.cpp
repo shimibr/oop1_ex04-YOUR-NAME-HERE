@@ -31,27 +31,29 @@ void Controler::run()
 				int col = mousePosition.x / m_sizeObject;
 				int row = mousePosition.y / m_sizeObject;
 
-				if (mousePosition.y >= 0 && mousePosition.y < m_sizeObject)
+				if ( row == 0 )//mousePosition.y >= 0 && mousePosition.y < m_sizeObject)
 				{
 					if (col < m_toolbar.getSize())
 						object = &m_toolbar.getObject(col);
+
+					if (object->getType() == 'X')
+					{
+						m_loadFile.update_data();
+						std::cout << "The file has been updated" << std::endl;
+						object = &m_toolbar.getObject(0);
+						break;
+					}
 				}
 
-				if (object->getType() == 'X')
-				{
-					m_loadFile.update_data();
-					std::cout << "The file has been updated" << std::endl;
-					break;
-				}
-
-				if (object->getType() == '/')
-				{
-					robot_control(row, col);
-				}
 
 				if (mousePosition.y >= m_sizeObject && mousePosition.y < window.getSize().y)
 				{
+					if (object->getType() == '/')
+					{
+						robot_control(row, col,m_toolbar.getObject(0));
+					}
 					init_Object(object, Location(row, col));
+
 				}
 			}
 		}
@@ -78,16 +80,17 @@ void Controler::loading_window(int& i, int& j)
 	}
 }
 //================================================
-void Controler::robot_control(const int col, const int row)
+void Controler::robot_control(const int row, const int col,Object& Tdelete)
 {
 	if (!m_isRobot)
-	{
-		m_robotLocation.col = col;
-		m_robotLocation.row = row;
 		m_isRobot = true;
+
+	else
+	{
+		init_Object(&Tdelete, Location(m_robotLocation.row, m_robotLocation.col));
 	}
-	else if(m_isRobot)
-	m_board.deleteObject(m_robotLocation);
+	m_robotLocation.col = col;
+	m_robotLocation.row = row;
 }
 
 //=================================
