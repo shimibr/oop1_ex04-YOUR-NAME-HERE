@@ -35,6 +35,6 @@ void Object::loadTexture(int i)
 		m_texture.loadFromFile("stone.png");
 	else if (m_type == '#')
 		m_texture.loadFromFile("wall.png");
-	
-	//m_sprite.setPosition(i*50,0);
+	else if (m_type == 'X')
+		m_texture.loadFromFile("save.png");
 }

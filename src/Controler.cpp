@@ -3,12 +3,63 @@
 #include <iostream>
 
 Controler::Controler()
-{
-}
+	:m_sizeObject(50), m_isRobot(false)
+{ }
 //===========================
 void Controler::run()
 {
 	int i, j;
+
+	loading_window(i, j);
+
+	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * m_sizeObject, (j + 1) * m_sizeObject), "Window example");
+	Object* object = &m_toolbar.getObject(0);
+
+	while (window.isOpen())
+	{
+		m_board.print_window(window, m_toolbar);
+		sf::Event event;
+
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+
+			else if (event.type == sf::Event::MouseButtonPressed)
+			{
+				sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+				int col = mousePosition.x / m_sizeObject;
+				int row = mousePosition.y / m_sizeObject;
+
+				if (mousePosition.y >= 0 && mousePosition.y < m_sizeObject)
+				{
+					if (col < m_toolbar.getSize())
+						object = &m_toolbar.getObject(col);
+				}
+
+				if (object->getType() == 'X')
+				{
+					m_loadFile.update_data();
+					std::cout << "The file has been updated" << std::endl;
+					break;
+				}
+
+				if (object->getType() == '/')
+				{
+					robot_control(row, col);
+				}
+
+				if (mousePosition.y >= m_sizeObject && mousePosition.y < window.getSize().y)
+				{
+					init_Object(object, Location(row, col));
+				}
+			}
+		}
+	}
+}
+//==========================================
+void Controler::loading_window(int& i, int& j)
+{
 	if (!m_loadFile.get_is_file())
 	{
 		std::cout << "Please enter the window height: ";
@@ -25,53 +76,19 @@ void Controler::run()
 		i = m_loadFile.get_col_size();
 		fill_from_file();
 	}
-
-	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * m_sizeObject, (j + 1) * m_sizeObject), "Window example");
-
-	Object* object = &m_toolbar.getObject(0);
-	
-
-
-	while (window.isOpen())
-	{
-		m_board.print_window(window,m_toolbar);
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-
-			else if (event.type == sf::Event::MouseButtonPressed)
-			{
-
-				sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-
-				if (mousePosition.y >= 0 && mousePosition.y < m_sizeObject)
-				{
-					int index = mousePosition.x / m_sizeObject;
-
-					if (index < m_toolbar.getSize())
-						object = &m_toolbar.getObject(index);
-				}
-
-				else if (mousePosition.y >= m_sizeObject && mousePosition.y < window.getSize().y)
-				{
-					Location location;
-					location.col = mousePosition.x / m_sizeObject;
-					location.row = mousePosition.y / m_sizeObject;
-			 
-					init_Object(object,location);
-					
-				}
-			}
-
-		}
-
-
-
-	}
 }
-
+//================================================
+void Controler::robot_control(const int col, const int row)
+{
+	if (!m_isRobot)
+	{
+		m_robotLocation.col = col;
+		m_robotLocation.row = row;
+		m_isRobot = true;
+	}
+	else if(m_isRobot)
+	m_board.deleteObject(m_robotLocation);
+}
 
 //=================================
 void Controler::fill_from_file()
@@ -94,14 +111,14 @@ void Controler::fill_from_file()
 }
 //================================================
 void Controler::init_Object(Object* object, Location location)
-{////////////////////////
+{
 	if (object->getType() == ' ')
-	{
-		//m_loadFile.set_to_file();
 		m_board.deleteObject(location);
-	}
+
 	else
-	{
 		m_board.pushObject(location, object);
-	}
+
+	location.row--;
+	m_loadFile.set_to_file(Char_Location(location, object->getType()));
 }
+//================================================

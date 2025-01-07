@@ -27,6 +27,17 @@ void LoadFile::fill_data()
         m_data.push_back(line);
     }
 }
+//=================================
+void LoadFile::update_data()
+{
+	std::ofstream file("Board.txt");
+	for (int i = 0; i < m_data.size(); i++)
+	{
+		file << m_data[i] << std::endl;
+	}
+	file.close();
+    
+}
 //==============================
 int LoadFile::col_size()
 {

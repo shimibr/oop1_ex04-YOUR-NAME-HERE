@@ -18,7 +18,10 @@ public:
 	int get_col_size();
 	void set_row_size();
 	void set_col_size();
-	bool get_is_file(); 
+	bool get_is_file();  
+	void update_data();
+
+
 
 private:
 	void fill_data();

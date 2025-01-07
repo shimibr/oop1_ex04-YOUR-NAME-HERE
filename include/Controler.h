@@ -13,8 +13,13 @@ public:
 private:
     void fill_from_file();
     void init_Object(Object* object,Location location);
-    const int m_sizeObject = 50;
+    void loading_window(int &i, int &j);
+	void robot_control(const int col, const int row);
+
+    const int m_sizeObject;
     LoadFile m_loadFile;
     Board m_board;
     Toolbar m_toolbar;
+    bool m_isRobot;
+	Location m_robotLocation;
 };
