@@ -24,4 +24,6 @@ private:
 	void print_background(sf::RenderWindow& window);
 	
 	std::vector<Loc_Object> m_LocObjects;
+	sf::Texture m_texture;
+	sf::Sprite m_sprite;
 };

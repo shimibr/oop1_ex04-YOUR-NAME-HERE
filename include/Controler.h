@@ -20,6 +20,5 @@ private:
     LoadFile m_loadFile;
     Board m_board;
     Toolbar m_toolbar;
-    bool m_isRobot;
 	Location m_robotLocation;
 };

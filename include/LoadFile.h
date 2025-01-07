@@ -16,8 +16,7 @@ public:
 	void set_to_file(Char_Location chLoc);
 	int get_row_size();
 	int get_col_size();
-	void set_row_size();
-	void set_col_size();
+	void set_size(Location size);
 	bool get_is_file();  
 	void update_data();
 	Location get_loc_robot();

@@ -3,7 +3,7 @@
 #include <iostream>
 
 Controler::Controler()
-	:m_sizeObject(50), m_isRobot(false)
+	:m_sizeObject(50)
 { }
 //===========================
 void Controler::run()
@@ -69,6 +69,7 @@ void Controler::loading_window(int& i, int& j)
 		std::cout << "Please enter the window width: ";
 		std::cin >> j;
 		std::cout << "excellent! The window is already up" << std::endl;
+		m_loadFile.set_size(Location(j, i));
 	}
 	else
 	{
@@ -77,16 +78,12 @@ void Controler::loading_window(int& i, int& j)
 		j = m_loadFile.get_row_size();
 		i = m_loadFile.get_col_size();
 		fill_from_file();
-		m_robotLocation = m_loadFile.get_loc_robot();
 	}
+		m_robotLocation = m_loadFile.get_loc_robot();
 }
 //================================================
 void Controler::robot_control(const int row, const int col,Object& Tdelete)
 {
-	//if (!m_isRobot)
-		m_isRobot = true;
-
-	//else
 		if(m_loadFile.check_if_robot(Location(m_robotLocation.row-1, m_robotLocation.col)))
 			init_Object(&Tdelete, m_robotLocation);
 	

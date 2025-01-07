@@ -4,7 +4,7 @@
 #include <fstream>
 
 LoadFile::LoadFile()
-    : is_file(true), m_loc_robot{ 0,0 }
+    : is_file(true), m_loc_robot{ 1,0 }
 {
 	m_i = 0;
 	m_j = 0;
@@ -85,7 +85,6 @@ bool LoadFile::get_from_file(Char_Location& chLoc)
 //================================
 void LoadFile::set_to_file(Char_Location chLoc)
 {
-    
 	m_data[chLoc.location.row][chLoc.location.col] = chLoc.type;
 }
 //==================================
@@ -99,13 +98,13 @@ int LoadFile::get_col_size()
     return m_size_col;
 }
 //==================================
-void LoadFile::set_row_size()
+void LoadFile::set_size(Location size)
 {
-
-}
-//==================================
-void LoadFile::set_col_size()
-{
+    m_data.resize(size.row);
+    for (int i = 0; i < m_data.size(); i++)
+    {
+        m_data[i] = std::string(size.col, ' ');
+    }
 }
 //==================================
 bool LoadFile::get_is_file()

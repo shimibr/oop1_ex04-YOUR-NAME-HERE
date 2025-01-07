@@ -4,6 +4,8 @@
 
 Board::Board()
 {
+	m_texture.loadFromFile("background.png");
+	m_sprite.setTexture(m_texture);
 }
 //=========================================
 void Board::deleteObject(Location location)
@@ -50,19 +52,18 @@ void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)
 //======================================
 void Board::print_background(sf::RenderWindow& window)
 {
-	sf::Texture texture;
-	texture.loadFromFile("background.png");
+	//sf::Texture texture;
+	//texture.loadFromFile("background.png");
 	
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
+	//sf::Sprite sprite;
+	//sprite.setTexture(texture);
 
 	for (int row = 1; row < window.getSize().y; ++row)
 	{
 		for (int col = 0; col < window.getSize().x; ++col)
 		{
-			
-			sprite.setPosition(col * 50, row * 50); 
-			window.draw(sprite);
+			m_sprite.setPosition(col * 50, row * 50); 
+			window.draw(m_sprite);
 		}
 	}
 }
