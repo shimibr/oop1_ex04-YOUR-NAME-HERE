@@ -7,8 +7,9 @@ LoadFile::LoadFile()
 	:  is_file(true)
 {
 	m_i = 0;
-	m_j = 0;    
+	m_j = 0;
     fill_data();
+    m_size_col = col_size();
 }
 //=================================
 void LoadFile::fill_data()
@@ -26,23 +27,33 @@ void LoadFile::fill_data()
         m_data.push_back(line);
     }
 }
+//==============================
+int LoadFile::col_size()
+{
+    int size = 0;
+    for (int i = 0; i < m_data.size(); i++)
+    {
+        if (m_data[i].size() > size)
+            size = m_data[i].size();
+    }
+    return size;
+}
 //==================================
 bool LoadFile::get_from_file(Char_Location& chLoc)
 {
-    for (int i = (m_i+1); i < get_row_size(); i++)
+    for (m_i = m_i; m_i < m_data.size(); m_i++)
     {
-		for (int j = (m_j+1); j < get_col_size(); j++)
+		for (m_j = m_j; m_j < m_data[m_i].size(); m_j++)
 		{
-			if (m_data[i][j] != ' ')
+			if (m_data[m_i][m_j] != ' ')
 			{
-				chLoc.location = Location(i,j);
-				chLoc.type = m_data[i][j];
-				m_i = i;
-				m_j = j;
+				chLoc.location = Location(m_i,m_j);
+				chLoc.type = m_data[m_i][m_j];
+                m_j++;
 				return true;
 			}
 		}
-
+        m_j = 0;
     }
 
     return false;
@@ -60,13 +71,7 @@ int LoadFile::get_row_size()
 //===================================
 int LoadFile::get_col_size()
 {
-    int size = 0;
-    for (int i = 0; i < m_data.size(); i++)
-    {
-        if (m_data[i].size() > size)
-            size = m_data[i].size();
-    }
-    return size-20;
+    return m_size_col;
 }
 //==================================
 void LoadFile::set_row_size()

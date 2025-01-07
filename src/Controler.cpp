@@ -3,7 +3,6 @@
 #include <iostream>
 
 Controler::Controler()
-
 {
 }
 //===========================
@@ -22,14 +21,15 @@ void Controler::run()
 	{
 		std::cout << "Please wait - we are already continuing the editing :) " << std::endl;
 
-		i = m_loadFile.get_row_size();
-		j = m_loadFile.get_col_size();
+		j = m_loadFile.get_row_size();
+		i = m_loadFile.get_col_size();
+		fill_from_file();
 	}
 
 	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * m_sizeObject, (j + 1) * m_sizeObject), "Window example");
 
 	Object* object = &m_toolbar.getObject(0);
-	fill_from_file();
+	
 
 
 	while (window.isOpen())
@@ -77,14 +77,18 @@ void Controler::run()
 void Controler::fill_from_file()
 {
 	Char_Location type_location;
-	Object* object;
+	Object* object = &m_toolbar.getObject(0);
 	while (m_loadFile.get_from_file(type_location))
 	{
 		for (int i = 0; i < m_toolbar.getSize(); i++)
 		{
 			if (type_location.type == m_toolbar.getObject(i).getType())
+			{
 				object = &m_toolbar.getObject(i);
+				break;
+			}
 		}
+		type_location.location.row++;
 		m_board.pushObject(type_location.location, object);
 	}
 }

@@ -12,7 +12,6 @@ class LoadFile
 {
 public:
 	LoadFile();
-	void fill_data();
 	bool get_from_file(Char_Location& chLoc);
 	void set_to_file(Char_Location chLoc);
 	int get_row_size();
@@ -22,8 +21,12 @@ public:
 	bool get_is_file(); 
 
 private:
+	void fill_data();
+	int col_size();
+
 	int m_i, m_j;
 	bool is_file;
+	int m_size_col;
 	std::vector<std::string> m_data;
 
 };
