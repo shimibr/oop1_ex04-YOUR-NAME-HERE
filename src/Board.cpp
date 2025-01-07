@@ -53,14 +53,14 @@ void Board::print_background(sf::RenderWindow& window)
 	sf::Texture texture;
 	texture.loadFromFile("background.png");
 	
-
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
 
 	for (int row = 1; row < window.getSize().y; ++row)
 	{
 		for (int col = 0; col < window.getSize().x; ++col)
 		{
-			sf::Sprite sprite;
-			sprite.setTexture(texture);
+			
 			sprite.setPosition(col * 50, row * 50); 
 			window.draw(sprite);
 		}

@@ -4,7 +4,7 @@
 #include <fstream>
 
 LoadFile::LoadFile()
-	:  is_file(true)
+    : is_file(true), m_loc_robot{ 0,0 }
 {
 	m_i = 0;
 	m_j = 0;
@@ -38,6 +38,16 @@ void LoadFile::update_data()
 	file.close();
     
 }
+//======================================
+Location LoadFile::get_loc_robot()
+{
+    return m_loc_robot;
+}
+//===================================
+bool LoadFile::check_if_robot(Location loc)
+{
+    return m_data[loc.row][loc.col] == '/';
+}
 //==============================
 int LoadFile::col_size()
 {
@@ -58,6 +68,9 @@ bool LoadFile::get_from_file(Char_Location& chLoc)
 		{
 			if (m_data[m_i][m_j] != ' ')
 			{
+                if (m_data[m_i][m_j] == '/')
+                    m_loc_robot = Location(m_i+1, m_j);
+
 				chLoc.location = Location(m_i,m_j);
 				chLoc.type = m_data[m_i][m_j];
                 m_j++;
@@ -72,6 +85,7 @@ bool LoadFile::get_from_file(Char_Location& chLoc)
 //================================
 void LoadFile::set_to_file(Char_Location chLoc)
 {
+    
 	m_data[chLoc.location.row][chLoc.location.col] = chLoc.type;
 }
 //==================================

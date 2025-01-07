@@ -20,7 +20,8 @@ public:
 	void set_col_size();
 	bool get_is_file();  
 	void update_data();
-
+	Location get_loc_robot();
+	bool check_if_robot(Location loc);
 
 
 private:
@@ -28,6 +29,7 @@ private:
 	int col_size();
 
 	int m_i, m_j;
+	Location m_loc_robot;
 	bool is_file;
 	int m_size_col;
 	std::vector<std::string> m_data;

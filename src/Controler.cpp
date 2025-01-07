@@ -77,18 +77,19 @@ void Controler::loading_window(int& i, int& j)
 		j = m_loadFile.get_row_size();
 		i = m_loadFile.get_col_size();
 		fill_from_file();
+		m_robotLocation = m_loadFile.get_loc_robot();
 	}
 }
 //================================================
 void Controler::robot_control(const int row, const int col,Object& Tdelete)
 {
-	if (!m_isRobot)
+	//if (!m_isRobot)
 		m_isRobot = true;
 
-	else
-	{
-		init_Object(&Tdelete, Location(m_robotLocation.row, m_robotLocation.col));
-	}
+	//else
+		if(m_loadFile.check_if_robot(Location(m_robotLocation.row-1, m_robotLocation.col)))
+			init_Object(&Tdelete, m_robotLocation);
+	
 	m_robotLocation.col = col;
 	m_robotLocation.row = row;
 }
