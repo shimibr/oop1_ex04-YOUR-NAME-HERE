@@ -11,11 +11,13 @@ public:
     void run();
 
 private:
+    void delitWindow();
     void fill_from_file();
     void init_Object(Object* object, Location location);
     void loading_window(int &i, int &j);
 	void robot_control(const int row, const int col, Object& Tdelete);
 
+    bool m_delitWindow;
     const int m_sizeObject;
     LoadFile m_loadFile;
     Board m_board;

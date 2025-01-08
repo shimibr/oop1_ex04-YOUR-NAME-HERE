@@ -48,6 +48,12 @@ bool LoadFile::check_if_robot(Location loc)
 {
     return m_data[loc.row][loc.col] == '/';
 }
+//================================
+void LoadFile::clear_data()
+{
+    m_data.clear();
+    is_file = false;
+}
 //==============================
 int LoadFile::col_size()
 {

@@ -16,6 +16,7 @@ public:
 	void print_window(sf::RenderWindow& window, Toolbar& toolbar);
 	void deleteObject(Location location);
 	void pushObject(Location location, Object* object);
+	void clearObjects();
 
 private:
 	void update_window(sf::RenderWindow& window);

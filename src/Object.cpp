@@ -21,7 +21,7 @@ char Object::getType()
 	return m_type;
 }
 //============================
-void Object::loadTexture(int i)
+void Object::loadTexture(int i)// מה I עושה פה
 {
  	if(m_type == '/')
 		m_texture.loadFromFile("robot.png");
@@ -37,4 +37,7 @@ void Object::loadTexture(int i)
 		m_texture.loadFromFile("wall.png");
 	else if (m_type == 'X')
 		m_texture.loadFromFile("save.png");
+	else if (m_type == 'C')
+		m_texture.loadFromFile("save.png");
+
 }

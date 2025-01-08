@@ -21,6 +21,7 @@ public:
 	void update_data();
 	Location get_loc_robot();
 	bool check_if_robot(Location loc);
+	void clear_data();
 
 
 private:

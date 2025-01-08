@@ -3,57 +3,69 @@
 #include <iostream>
 
 Controler::Controler()
-	:m_sizeObject(50)
+	:m_sizeObject(50), m_delitWindow(true)
 { }
 //===========================
 void Controler::run()
 {
 	int i, j;
 
-	loading_window(i, j);
 
-	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * m_sizeObject, (j + 1) * m_sizeObject), "Window example");
-	Object* object = &m_toolbar.getObject(0);
-
-	while (window.isOpen())
+	while (m_delitWindow)
 	{
-		m_board.print_window(window, m_toolbar);
-		sf::Event event;
+		loading_window(i, j);
 
-		while (window.pollEvent(event))
+		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * m_sizeObject, (j + 1) * m_sizeObject), "Window example");
+		Object* object = &m_toolbar.getObject(0);
+
+		while (window.isOpen())
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
+			m_board.print_window(window, m_toolbar);
+			sf::Event event;
 
-			else if (event.type == sf::Event::MouseButtonPressed)
+			while (window.pollEvent(event))
 			{
-				sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-				int col = mousePosition.x / m_sizeObject;
-				int row = mousePosition.y / m_sizeObject;
-
-				if ( row == 0 )//mousePosition.y >= 0 && mousePosition.y < m_sizeObject)
+				if (event.type == sf::Event::Closed)
 				{
-					if (col < m_toolbar.getSize())
-						object = &m_toolbar.getObject(col);
-
-					if (object->getType() == 'X')
-					{
-						m_loadFile.update_data();
-						std::cout << "The file has been updated" << std::endl;
-						object = &m_toolbar.getObject(0);
-						break;
-					}
+					m_delitWindow = false;
+					window.close();
 				}
-
-
-				if (mousePosition.y >= m_sizeObject && mousePosition.y < window.getSize().y)
+				else if (event.type == sf::Event::MouseButtonPressed)
 				{
-					if (object->getType() == '/')
-					{
-						robot_control(row, col,m_toolbar.getObject(0));
-					}
-					init_Object(object, Location(row, col));
+					sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+					int col = mousePosition.x / m_sizeObject;
+					int row = mousePosition.y / m_sizeObject;
 
+					if (row == 0)//mousePosition.y >= 0 && mousePosition.y < m_sizeObject)
+					{
+						if (col < m_toolbar.getSize())
+							object = &m_toolbar.getObject(col);
+
+						if (object->getType() == 'X')
+						{
+							m_loadFile.update_data();
+							std::cout << "The file has been updated" << std::endl;
+							object = &m_toolbar.getObject(0);
+							break;
+						}
+						if (object->getType() == 'C')
+						{
+							delitWindow();
+							window.close();
+						}
+
+					}
+
+
+					if (mousePosition.y >= m_sizeObject && mousePosition.y < window.getSize().y)
+					{
+						if (object->getType() == '/')
+						{
+							robot_control(row, col, m_toolbar.getObject(0));
+						}
+						init_Object(object, Location(row, col));
+
+					}
 				}
 			}
 		}
@@ -89,6 +101,12 @@ void Controler::robot_control(const int row, const int col,Object& Tdelete)
 	
 	m_robotLocation.col = col;
 	m_robotLocation.row = row;
+}
+//==========================================
+void Controler::delitWindow()
+{
+	m_loadFile.clear_data();
+	m_board.clearObjects();
 }
 
 //=================================

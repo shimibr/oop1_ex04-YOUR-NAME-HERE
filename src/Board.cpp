@@ -26,6 +26,11 @@ void Board::pushObject(Location location, Object* object)
 	Loc_Object tamp(location, object);
 	m_LocObjects.push_back(tamp);
 }
+//=====================================
+void Board::clearObjects()
+{
+	m_LocObjects.clear();
+}
 //=======================================
 void Board::update_window(sf::RenderWindow& window)
 {
