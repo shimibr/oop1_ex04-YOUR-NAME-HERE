@@ -14,19 +14,19 @@ public:
 	LoadFile();
 	bool get_from_file(Char_Location& chLoc);
 	void set_to_file(Char_Location chLoc);
-	int get_row_size();
-	int get_col_size();
-	void set_size(Location size);
-	bool get_is_file();  
+	int get_row_size()const;
+	int get_col_size()const;
+	void set_size(const Location size);
+	bool get_is_file()const;
 	void update_data();
-	Location get_loc_robot();
-	bool check_if_robot(Location loc);
+	Location get_loc_robot()const;
+	bool check_if_robot(const Location loc)const;
 	void clear_data();
 
 
 private:
 	void fill_data();
-	int col_size();
+	int col_size() const;
 
 	int m_i, m_j;
 	Location m_loc_robot;

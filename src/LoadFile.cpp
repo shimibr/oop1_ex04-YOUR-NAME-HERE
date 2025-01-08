@@ -38,12 +38,12 @@ void LoadFile::update_data()
 	file.close();
 }
 //======================================
-Location LoadFile::get_loc_robot()
+Location LoadFile::get_loc_robot() const
 {
     return m_loc_robot;
 }
 //===================================
-bool LoadFile::check_if_robot(Location loc)
+bool LoadFile::check_if_robot(const Location loc) const
 {
     return m_data[loc.row][loc.col] == Entity::ROBOT;
 }
@@ -54,7 +54,7 @@ void LoadFile::clear_data()
     is_file = false;
 }
 //==============================
-int LoadFile::col_size()
+int LoadFile::col_size() const
 {
     int size = 0;
     for (int i = 0; i < m_data.size(); i++)
@@ -65,7 +65,7 @@ int LoadFile::col_size()
     return size;
 }
 //==================================
-bool LoadFile::get_from_file(Char_Location& chLoc)
+bool LoadFile::get_from_file(Char_Location& chLoc) 
 {
     for (m_i = m_i; m_i < m_data.size(); m_i++)
     {
@@ -92,12 +92,12 @@ void LoadFile::set_to_file(Char_Location chLoc)
 	m_data[chLoc.location.row][chLoc.location.col] = chLoc.type;
 }
 //==================================
-int LoadFile::get_row_size()
+int LoadFile::get_row_size() const
 {
     return m_data.size();
 }
 //===================================
-int LoadFile::get_col_size()
+int LoadFile::get_col_size() const
 {
     return m_size_col;
 }
@@ -111,7 +111,7 @@ void LoadFile::set_size(Location size)
     }
 }
 //==================================
-bool LoadFile::get_is_file()
+bool LoadFile::get_is_file() const
 {
 	return is_file;
 }

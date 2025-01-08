@@ -9,12 +9,9 @@ Controler::Controler()
 void Controler::run()
 {
 	int i, j;
-
-
 	while (m_deleteWindow)
 	{
 		loading_window(i, j);
-
 		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * Entity::SIZE_PIXEL, (j + 1) * Entity::SIZE_PIXEL), "Stage editing panel");
 		Object* object = &m_toolbar.get_object(0);
 
@@ -36,36 +33,41 @@ void Controler::run()
 					Location mouseLoc(mousePosition.y / Entity::SIZE_PIXEL, mousePosition.x / Entity::SIZE_PIXEL);
 
 					if (mouseLoc.row == 0)
-					{
-						if (mouseLoc.col < m_toolbar.get_size())
-							object = &m_toolbar.get_object(mouseLoc.col);
-
-						if (object->getType() == Entity::SAVE)
-						{
-							oction_save(object);
-							break;
-						}
-						if (object->getType() == Entity::CLEAN_BOARD)
-						{
-							delete_window();
-							window.close();
-						}
-
-					}
+						toolbar_event(window, object, mouseLoc);
 
 					if (mousePosition.y >= Entity::SIZE_PIXEL && mousePosition.y < window.getSize().y)
-					{
-						if (object->getType() == Entity::ROBOT)
-						{
-							robot_control(mouseLoc.row, mouseLoc.col, m_toolbar.get_object(0));
-						}
-						init_Object(object, Location(mouseLoc.row, mouseLoc.col));
-
-					}
+						board_event(window, object, mouseLoc);
 				}
 			}
 		}
 	}
+}
+//==========================================
+void Controler::toolbar_event(sf::RenderWindow& window, Object*& object, Location mouseLoc)
+{
+	if (mouseLoc.col < m_toolbar.get_size())
+		object = &m_toolbar.get_object(mouseLoc.col);
+
+	if (object->getType() == Entity::SAVE)
+	{
+		oction_save(object);
+		return;
+	}
+	if (object->getType() == Entity::CLEAN_BOARD)
+	{
+		delete_window();
+		window.close();
+	}
+
+}
+//==========================================
+void Controler::board_event(sf::RenderWindow& window, Object*& object, Location mouseLoc)
+{
+	if (object->getType() == Entity::ROBOT)
+	{
+		robot_control(mouseLoc.row, mouseLoc.col, m_toolbar.get_object(0));
+	}
+	init_Object(object, Location(mouseLoc.row, mouseLoc.col));
 }
 //==========================================
 void Controler::loading_window(int& i, int& j)
