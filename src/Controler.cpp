@@ -3,7 +3,7 @@
 #include <iostream>
 
 Controler::Controler()
-	:m_deleteWindow(true)
+	:m_deleteWindow(true), m_robotLocation{ 0,0 }
 { }
 //===========================
 void Controler::run()
