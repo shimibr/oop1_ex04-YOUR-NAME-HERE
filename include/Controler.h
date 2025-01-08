@@ -16,6 +16,7 @@ private:
     void init_Object(Object* object, Location location);
     void loading_window(int &i, int &j);
 	void robot_control(const int row, const int col, Object& Tdelete);
+    void oction_save(Object* object);
 
     bool m_deleteWindow;
     LoadFile m_loadFile;

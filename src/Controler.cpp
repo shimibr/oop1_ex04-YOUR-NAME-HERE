@@ -42,10 +42,7 @@ void Controler::run()
 
 						if (object->getType() == Entity::SAVE)
 						{
-							m_loadFile.update_data();
-							m_board.show_save_success_window();
-							std::cout << "The file has been updated" << std::endl;
-							object = &m_toolbar.get_object(0);
+							oction_save(object);
 							break;
 						}
 						if (object->getType() == Entity::CLEAN_BOARD)
@@ -99,6 +96,14 @@ void Controler::robot_control(const int row, const int col, Object& Tdelete)
 		init_Object(&Tdelete, m_robotLocation);
 
 	m_robotLocation = Location(row, col);
+}
+//==========================================
+void Controler::oction_save(Object* object)
+{
+	m_loadFile.update_data();
+	m_board.show_save_success_window();
+	std::cout << "The file has been updated" << std::endl;
+	object = &m_toolbar.get_object(0);
 }
 //==========================================
 void Controler::delete_window()
