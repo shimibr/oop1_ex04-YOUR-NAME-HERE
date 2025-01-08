@@ -26,5 +26,4 @@ private:
 	
 	std::vector<Loc_Object> m_LocObjects;
 	sf::Texture m_texture;
-	sf::Sprite m_sprite;
 };

@@ -18,7 +18,6 @@ private:
 	void robot_control(const int row, const int col, Object& Tdelete);
 
     bool m_delitWindow;
-    const int m_sizeObject;
     LoadFile m_loadFile;
     Board m_board;
     Toolbar m_toolbar;

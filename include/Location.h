@@ -11,3 +11,4 @@ struct Char_Location
     Location location;
     char type;
 };
+const int SIZE_PIXEL = 50;

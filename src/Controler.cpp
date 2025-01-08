@@ -3,7 +3,7 @@
 #include <iostream>
 
 Controler::Controler()
-	:m_sizeObject(50), m_delitWindow(true)
+	:m_delitWindow(true)
 { }
 //===========================
 void Controler::run()
@@ -15,7 +15,7 @@ void Controler::run()
 	{
 		loading_window(i, j);
 
-		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * m_sizeObject, (j + 1) * m_sizeObject), "Window example");
+		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * SIZE_PIXEL, (j + 1) * SIZE_PIXEL), "Window example");
 		Object* object = &m_toolbar.getObject(0);
 
 		while (window.isOpen())
@@ -33,10 +33,10 @@ void Controler::run()
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
 					sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-					int col = mousePosition.x / m_sizeObject;
-					int row = mousePosition.y / m_sizeObject;
+					int col = mousePosition.x / SIZE_PIXEL;
+					int row = mousePosition.y / SIZE_PIXEL;
 
-					if (row == 0)//mousePosition.y >= 0 && mousePosition.y < m_sizeObject)
+					if (row == 0)
 					{
 						if (col < m_toolbar.getSize())
 							object = &m_toolbar.getObject(col);
@@ -57,7 +57,7 @@ void Controler::run()
 					}
 
 
-					if (mousePosition.y >= m_sizeObject && mousePosition.y < window.getSize().y)
+					if (mousePosition.y >= SIZE_PIXEL && mousePosition.y < window.getSize().y)
 					{
 						if (object->getType() == '/')
 						{

@@ -5,7 +5,6 @@
 Board::Board()
 {
 	m_texture.loadFromFile("background.png");
-	m_sprite.setTexture(m_texture);
 }
 //=========================================
 void Board::deleteObject(Location location)
@@ -38,7 +37,8 @@ void Board::update_window(sf::RenderWindow& window)
 	{
 		sf::Sprite sprite;
 		sprite.setTexture(m_LocObjects[i].getTexture());
-		sprite.setPosition(m_LocObjects[i].getLocation().col * 50, m_LocObjects[i].getLocation().row * 50);
+		sprite.setPosition(m_LocObjects[i].getLocation().col * SIZE_PIXEL
+						, m_LocObjects[i].getLocation().row * SIZE_PIXEL);
 		window.draw(sprite);
 	}
 }
@@ -50,7 +50,7 @@ void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)
 	{
 		sf::Sprite sprite;
 		sprite.setTexture(toolbar.getObject(i).getTexture());
-		sprite.setPosition(i * 50,0);
+		sprite.setPosition(i * SIZE_PIXEL,0);
 		window.draw(sprite);
 	}
 }
@@ -60,15 +60,15 @@ void Board::print_background(sf::RenderWindow& window)
 	//sf::Texture texture;
 	//texture.loadFromFile("background.png");
 	
-	//sf::Sprite sprite;
-	//sprite.setTexture(texture);
+	sf::Sprite sprite;
+	sprite.setTexture(m_texture);
 
-	for (int row = 1; row < window.getSize().y; ++row)
+	for (int row = SIZE_PIXEL; row < window.getSize().y; row+=SIZE_PIXEL)
 	{
-		for (int col = 0; col < window.getSize().x; ++col)
+		for (int col = 0; col < window.getSize().x; col+=SIZE_PIXEL)
 		{
-			m_sprite.setPosition(col * 50, row * 50); 
-			window.draw(m_sprite);
+			sprite.setPosition(col, row); 
+			window.draw(sprite);
 		}
 	}
 }
