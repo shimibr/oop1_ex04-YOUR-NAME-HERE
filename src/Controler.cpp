@@ -58,7 +58,6 @@ void Controler::toolbar_event(sf::RenderWindow& window, Object*& object, Locatio
 		delete_window();
 		window.close();
 	}
-
 }
 //==========================================
 void Controler::board_event(sf::RenderWindow& window, Object*& object, Location mouseLoc)

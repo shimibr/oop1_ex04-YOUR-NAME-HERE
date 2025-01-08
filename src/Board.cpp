@@ -35,10 +35,20 @@ void Board::shadow_object(sf::RenderWindow& window, Object& object)
 {
 		sf::Sprite sprite;
 		sprite.setTexture(object.getTexture());
-		sprite.setColor(sf::Color(255, 255, 255, 220));
-		sprite.setScale(0.8,0.8);
+		sprite.setColor(sf::Color(255, 255, 255, 150));
+		
 		sf::Vector2i locMouse = sf::Mouse::getPosition(window);
-		sprite.setPosition(locMouse.x , locMouse.y - Entity::SIZE_PIXEL / 2);
+		if (locMouse.x < 0 || locMouse.x >= window.getSize().x || locMouse.y < 0 || locMouse.y >= window.getSize().y)
+			return;
+		else if (locMouse.y / Entity::SIZE_PIXEL == 0)
+		{
+			sprite.setScale(0.7, 0.7);
+			sprite.setPosition(locMouse.x , locMouse.y - Entity::SIZE_PIXEL/2);
+		}
+		else
+		sprite.setPosition(locMouse.x - locMouse.x % Entity::SIZE_PIXEL, locMouse.y - locMouse.y % Entity::SIZE_PIXEL);
+
+
 		window.draw(sprite);
 }
 //=======================================
