@@ -17,7 +17,7 @@ void Controler::run()
 
 		while (window.isOpen())
 		{
-			m_board.print_window(window, m_toolbar);
+			m_board.print_window(window, m_toolbar, *object);
 			sf::Event event;
 
 			while (window.pollEvent(event))
@@ -100,7 +100,7 @@ void Controler::robot_control(const int row, const int col, Object& Tdelete)
 	m_robotLocation = Location(row, col);
 }
 //==========================================
-void Controler::oction_save(Object* object)
+void Controler::oction_save(Object*& object)
 {
 	m_loadFile.update_data();
 	m_board.show_save_success_window();

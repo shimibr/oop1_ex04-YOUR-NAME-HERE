@@ -30,6 +30,17 @@ void Board::clear_objects()
 {
 	m_LocObjects.clear();
 }
+//====================================================
+void Board::shadow_object(sf::RenderWindow& window, Object& object)
+{
+		sf::Sprite sprite;
+		sprite.setTexture(object.getTexture());
+		sprite.setColor(sf::Color(255, 255, 255, 220));
+		sprite.setScale(0.8,0.8);
+		sf::Vector2i locMouse = sf::Mouse::getPosition(window);
+		sprite.setPosition(locMouse.x , locMouse.y - Entity::SIZE_PIXEL / 2);
+		window.draw(sprite);
+}
 //=======================================
 void Board::update_window(sf::RenderWindow& window)
 {
@@ -70,12 +81,13 @@ void Board::print_background(sf::RenderWindow& window)
 	}
 }
 //======================================
-void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar)
+void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar, Object& object)
 {
 	window.clear();
 	print_toolbar(window, toolbar);
 	print_background(window);
 	update_window(window);
+	shadow_object(window,object);
 	window.display();
 }
 //=======================================
