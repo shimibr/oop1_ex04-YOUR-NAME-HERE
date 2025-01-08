@@ -3,7 +3,7 @@
 #include <iostream>
 
 Controler::Controler()
-	:m_delitWindow(true)
+	:m_deleteWindow(true)
 { }
 //===========================
 void Controler::run()
@@ -11,12 +11,12 @@ void Controler::run()
 	int i, j;
 
 
-	while (m_delitWindow)
+	while (m_deleteWindow)
 	{
 		loading_window(i, j);
 
-		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * SIZE_PIXEL, (j + 1) * SIZE_PIXEL), "Window example");
-		Object* object = &m_toolbar.getObject(0);
+		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * Entity::SIZE_PIXEL, (j + 1) * Entity::SIZE_PIXEL), "Stage editing panel");
+		Object* object = &m_toolbar.get_object(0);
 
 		while (window.isOpen())
 		{
@@ -27,43 +27,42 @@ void Controler::run()
 			{
 				if (event.type == sf::Event::Closed)
 				{
-					m_delitWindow = false;
+					m_deleteWindow = false;
 					window.close();
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
 					sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-					int col = mousePosition.x / SIZE_PIXEL;
-					int row = mousePosition.y / SIZE_PIXEL;
+					Location mouseLoc(mousePosition.y / Entity::SIZE_PIXEL, mousePosition.x / Entity::SIZE_PIXEL);
 
-					if (row == 0)
+					if (mouseLoc.row == 0)
 					{
-						if (col < m_toolbar.getSize())
-							object = &m_toolbar.getObject(col);
+						if (mouseLoc.col < m_toolbar.get_size())
+							object = &m_toolbar.get_object(mouseLoc.col);
 
-						if (object->getType() == 'X')
+						if (object->getType() == Entity::SAVE)
 						{
 							m_loadFile.update_data();
+							m_board.show_save_success_window();
 							std::cout << "The file has been updated" << std::endl;
-							object = &m_toolbar.getObject(0);
+							object = &m_toolbar.get_object(0);
 							break;
 						}
-						if (object->getType() == 'C')
+						if (object->getType() == Entity::CLEAN_BOARD)
 						{
-							delitWindow();
+							delete_window();
 							window.close();
 						}
 
 					}
 
-
-					if (mousePosition.y >= SIZE_PIXEL && mousePosition.y < window.getSize().y)
+					if (mousePosition.y >= Entity::SIZE_PIXEL && mousePosition.y < window.getSize().y)
 					{
-						if (object->getType() == '/')
+						if (object->getType() == Entity::ROBOT)
 						{
-							robot_control(row, col, m_toolbar.getObject(0));
+							robot_control(mouseLoc.row, mouseLoc.col, m_toolbar.get_object(0));
 						}
-						init_Object(object, Location(row, col));
+						init_Object(object, Location(mouseLoc.row, mouseLoc.col));
 
 					}
 				}
@@ -94,48 +93,47 @@ void Controler::loading_window(int& i, int& j)
 		m_robotLocation = m_loadFile.get_loc_robot();
 }
 //================================================
-void Controler::robot_control(const int row, const int col,Object& Tdelete)
+void Controler::robot_control(const int row, const int col, Object& Tdelete)
 {
-		if(m_loadFile.check_if_robot(Location(m_robotLocation.row-1, m_robotLocation.col)))
-			init_Object(&Tdelete, m_robotLocation);
-	
-	m_robotLocation.col = col;
-	m_robotLocation.row = row;
+	if (m_loadFile.check_if_robot(Location(m_robotLocation.row - 1, m_robotLocation.col)))
+		init_Object(&Tdelete, m_robotLocation);
+
+	m_robotLocation = Location(row, col);
 }
 //==========================================
-void Controler::delitWindow()
+void Controler::delete_window()
 {
 	m_loadFile.clear_data();
-	m_board.clearObjects();
+	m_board.clear_objects();
 }
 
 //=================================
 void Controler::fill_from_file()
 {
 	Char_Location type_location;
-	Object* object = &m_toolbar.getObject(0);
+	Object* object = &m_toolbar.get_object(0);
 	while (m_loadFile.get_from_file(type_location))
 	{
-		for (int i = 0; i < m_toolbar.getSize(); i++)
+		for (int i = 0; i < m_toolbar.get_size(); i++)
 		{
-			if (type_location.type == m_toolbar.getObject(i).getType())
+			if (type_location.type == m_toolbar.get_object(i).getType())
 			{
-				object = &m_toolbar.getObject(i);
+				object = &m_toolbar.get_object(i);
 				break;
 			}
 		}
 		type_location.location.row++;
-		m_board.pushObject(type_location.location, object);
+		m_board.push_object(type_location.location, object);
 	}
 }
 //================================================
 void Controler::init_Object(Object* object, Location location)
 {
-	if (object->getType() == ' ')
-		m_board.deleteObject(location);
+	if (object->getType() == Entity::FREE_SPASE)
+		m_board.delete_object(location);
 
 	else
-		m_board.pushObject(location, object);
+		m_board.push_object(location, object);
 
 	location.row--;
 	m_loadFile.set_to_file(Char_Location(location, object->getType()));

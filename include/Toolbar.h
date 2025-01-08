@@ -8,12 +8,13 @@ class Toolbar
 {
 public:
     Toolbar();
-    Object& getObject(const int i) ;
-    int getSize();
+    Object& get_object(const int i) ;
+    int get_size();
     
 
 private:
-    void loadFromFile(const std::string& filename);
+    void load_from_file(const std::string& filename);
+    void loading_default_buttons();
 
     std::vector<Object> m_objects;
 };

@@ -7,7 +7,7 @@ Board::Board()
 	m_texture.loadFromFile("background.png");
 }
 //=========================================
-void Board::deleteObject(Location location)
+void Board::delete_object(Location location)
 {
 	for (auto it = m_LocObjects.begin(); it != m_LocObjects.end(); ++it)
 	{
@@ -19,14 +19,14 @@ void Board::deleteObject(Location location)
 	}
 }
 //====================================================
-void Board::pushObject(Location location, Object* object)
+void Board::push_object(Location location, Object* object)
 {
-	deleteObject(location);
+	delete_object(location);
 	Loc_Object tamp(location, object);
 	m_LocObjects.push_back(tamp);
 }
 //=====================================
-void Board::clearObjects()
+void Board::clear_objects()
 {
 	m_LocObjects.clear();
 }
@@ -37,8 +37,8 @@ void Board::update_window(sf::RenderWindow& window)
 	{
 		sf::Sprite sprite;
 		sprite.setTexture(m_LocObjects[i].getTexture());
-		sprite.setPosition(m_LocObjects[i].getLocation().col * SIZE_PIXEL
-						, m_LocObjects[i].getLocation().row * SIZE_PIXEL);
+		sprite.setPosition(m_LocObjects[i].getLocation().col * Entity::SIZE_PIXEL
+						, m_LocObjects[i].getLocation().row * Entity::SIZE_PIXEL);
 		window.draw(sprite);
 	}
 }
@@ -46,26 +46,23 @@ void Board::update_window(sf::RenderWindow& window)
 void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)
 {
 	
-	for (int i = 0; i < toolbar.getSize(); i++)
+	for (int i = 0; i < toolbar.get_size(); i++)
 	{
 		sf::Sprite sprite;
-		sprite.setTexture(toolbar.getObject(i).getTexture());
-		sprite.setPosition(i * SIZE_PIXEL,0);
+		sprite.setTexture(toolbar.get_object(i).getTexture());
+		sprite.setPosition(i * Entity::SIZE_PIXEL,0);
 		window.draw(sprite);
 	}
 }
 //======================================
 void Board::print_background(sf::RenderWindow& window)
-{
-	//sf::Texture texture;
-	//texture.loadFromFile("background.png");
-	
+{	
 	sf::Sprite sprite;
 	sprite.setTexture(m_texture);
 
-	for (int row = SIZE_PIXEL; row < window.getSize().y; row+=SIZE_PIXEL)
+	for (int row = Entity::SIZE_PIXEL; row < window.getSize().y; row += Entity::SIZE_PIXEL)
 	{
-		for (int col = 0; col < window.getSize().x; col+=SIZE_PIXEL)
+		for (int col = 0; col < window.getSize().x; col += Entity::SIZE_PIXEL)
 		{
 			sprite.setPosition(col, row); 
 			window.draw(sprite);
@@ -81,4 +78,30 @@ void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar)
 	update_window(window);
 	window.display();
 }
+//=======================================
+void Board::show_save_success_window()
+{
+	sf::RenderWindow successWindow(sf::VideoMode(300, 150), "System message");
+
+	sf::Font font;
+	font.loadFromFile("font.ttf");
+	sf::Text text;
+	text.setFont(font);
+	text.setString("Successfully saved!");
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::Blue);
+	text.setStyle(sf::Text::Bold);
+
+	sf::FloatRect textRect = text.getLocalBounds();
+	text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	text.setPosition(150.0f, 75.0f);
+
+	successWindow.clear(sf::Color::White);
+	successWindow.draw(text);
+	successWindow.display();
+
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	successWindow.close();
+}
+
 

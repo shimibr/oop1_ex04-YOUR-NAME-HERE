@@ -1,14 +1,15 @@
 #pragma once
 
 #include "Object.h"
+#include "io.h"
 
 Object::Object()
-	:Object(' ',0) { }
+	:Object(Entity::FREE_SPASE) { }
 //============================
-Object::Object(char type, int i)
+Object::Object(char type)
 	:m_type{type}
 {
-	loadTexture(i);
+	loadTexture();
 }
 //============================
 sf::Texture& Object::getTexture()
@@ -21,23 +22,23 @@ char Object::getType()
 	return m_type;
 }
 //============================
-void Object::loadTexture(int i)// מה I עושה פה
+void Object::loadTexture()
 {
- 	if(m_type == '/')
+ 	if(m_type == Entity::ROBOT)
 		m_texture.loadFromFile("robot.png");
-	else if(m_type == ' ')
+	else if(m_type == Entity::FREE_SPASE)
 		m_texture.loadFromFile("delete.png");
-	else if (m_type == '!')
+	else if (m_type == Entity::GUARD)
 		m_texture.loadFromFile("guard.png");
-	else if (m_type == 'D')
+	else if (m_type == Entity::DOOR)
 		m_texture.loadFromFile("door.png");
-	else if (m_type == '@')
+	else if (m_type == Entity::STONE)
 		m_texture.loadFromFile("stone.png");
-	else if (m_type == '#')
+	else if (m_type == Entity::WALL_OR_EDGE)
 		m_texture.loadFromFile("wall.png");
-	else if (m_type == 'X')
+	else if (m_type == Entity::SAVE)
 		m_texture.loadFromFile("save.png");
-	else if (m_type == 'C')
+	else if (m_type == Entity::CLEAN_BOARD)
 		m_texture.loadFromFile("save.png");
 
 }

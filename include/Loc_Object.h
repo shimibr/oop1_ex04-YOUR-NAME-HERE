@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Object.h"
-#include "Location.h"
+#include "io.h"
 
 class Loc_Object
 {

@@ -36,7 +36,6 @@ void LoadFile::update_data()
 		file << m_data[i] << std::endl;
 	}
 	file.close();
-    
 }
 //======================================
 Location LoadFile::get_loc_robot()
@@ -46,7 +45,7 @@ Location LoadFile::get_loc_robot()
 //===================================
 bool LoadFile::check_if_robot(Location loc)
 {
-    return m_data[loc.row][loc.col] == '/';
+    return m_data[loc.row][loc.col] == Entity::ROBOT;
 }
 //================================
 void LoadFile::clear_data()
@@ -72,9 +71,9 @@ bool LoadFile::get_from_file(Char_Location& chLoc)
     {
 		for (m_j = m_j; m_j < m_data[m_i].size(); m_j++)
 		{
-			if (m_data[m_i][m_j] != ' ')
+			if (m_data[m_i][m_j] != Entity::FREE_SPASE)
 			{
-                if (m_data[m_i][m_j] == '/')
+                if (m_data[m_i][m_j] == Entity::ROBOT)
                     m_loc_robot = Location(m_i+1, m_j);
 
 				chLoc.location = Location(m_i,m_j);
@@ -85,7 +84,6 @@ bool LoadFile::get_from_file(Char_Location& chLoc)
 		}
         m_j = 0;
     }
-
     return false;
 }
 //================================
@@ -109,13 +107,12 @@ void LoadFile::set_size(Location size)
     m_data.resize(size.row);
     for (int i = 0; i < m_data.size(); i++)
     {
-        m_data[i] = std::string(size.col, ' ');
+        m_data[i] = std::string(size.col, Entity::FREE_SPASE);
     }
 }
 //==================================
 bool LoadFile::get_is_file()
 {
-
 	return is_file;
 }
 //==================================

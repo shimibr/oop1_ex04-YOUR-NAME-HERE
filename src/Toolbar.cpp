@@ -1,40 +1,37 @@
 #pragma once
-
 #include "Toolbar.h"
+#include "io.h"
 
 Toolbar::Toolbar() 
 {
-    loadFromFile("Toolbar.txt");
+    load_from_file("Toolbar.txt");
 }
 //==================================
-void Toolbar::loadFromFile(const std::string& filename)
+void Toolbar::load_from_file(const std::string& filename)
 {
+    loading_default_buttons();
     std::ifstream file(filename);
 
-    int i = 0;
-    char ch = ' ';
-
-    while (file.get(ch)) 
-    {
-        if (ch == '\n') 
-        {
-            continue;
-        }
-        
-        Object obj(ch, i); 
-        m_objects.push_back(obj); 
-        i++;
-    }
+    char ch;
+    while (file.get(ch))   
+        m_objects.push_back(Object(ch));
 
     file.close();
 }
 //=================================
-Object& Toolbar::getObject(const int i)  
+void Toolbar::loading_default_buttons()
+{
+    m_objects.push_back(Object(Entity::FREE_SPASE));
+    m_objects.push_back(Object(Entity::CLEAN_BOARD));
+    m_objects.push_back(Object(Entity::SAVE));
+}
+//=================================
+Object& Toolbar::get_object(const int i)  
 {
     return m_objects[i];
 }
 //==================================
-int Toolbar::getSize()
+int Toolbar::get_size()
 {
     return m_objects.size();
 }

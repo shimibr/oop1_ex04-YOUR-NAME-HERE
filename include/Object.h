@@ -2,20 +2,15 @@
 
 #include <SFML/Graphics.hpp>
 
-//#include <vector>
-//#include <string>
-//#include <fstream>
-//#include <iostream>
-//#include <ostream>
 
 class Object
 {
 public:
 	Object();
-	Object(char type, int i);
+	Object(char type);
 	sf::Texture& getTexture();
 	char getType();
-	void loadTexture(int i);
+	void loadTexture();
 
 private:
 	sf::Texture m_texture;

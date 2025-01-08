@@ -6,7 +6,7 @@
 #include <SFML/Network.hpp>
 
 #include "Object.h"
-#include "Location.h"
+#include "io.h"
 
 class LoadFile
 {
