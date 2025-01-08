@@ -25,3 +25,11 @@ struct Char_Location
 	Location location;
 	char type;
 };
+
+struct Loc_Object 
+{
+	Location location;
+	Object* object;
+
+
+};

@@ -11,7 +11,7 @@ void Board::delete_object(Location location)
 {
 	for (auto it = m_LocObjects.begin(); it != m_LocObjects.end(); ++it)
 	{
-		if (it->getLocation().row == location.row  && it->getLocation().col == location.col)
+		if (it->location.row == location.row  && it->location.col == location.col)
 		{
 			m_LocObjects.erase(it);
 			break;
@@ -36,9 +36,9 @@ void Board::update_window(sf::RenderWindow& window)
 	for (int i = 0; i < m_LocObjects.size(); i++)
 	{
 		sf::Sprite sprite;
-		sprite.setTexture(m_LocObjects[i].getTexture());
-		sprite.setPosition(m_LocObjects[i].getLocation().col * Entity::SIZE_PIXEL
-						, m_LocObjects[i].getLocation().row * Entity::SIZE_PIXEL);
+		sprite.setTexture(m_LocObjects[i].object->getTexture());
+		sprite.setPosition(m_LocObjects[i].location.col * Entity::SIZE_PIXEL
+						, m_LocObjects[i].location.row * Entity::SIZE_PIXEL);
 		window.draw(sprite);
 	}
 }

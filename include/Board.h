@@ -6,9 +6,9 @@
 #include <SFML/Network.hpp>
 
 #include "Toolbar.h"
-#include "Loc_Object.h"
+//#include "Loc_Object.h"
 #include <thread>
-
+#include "io.h"
 
 class Board 
 {
