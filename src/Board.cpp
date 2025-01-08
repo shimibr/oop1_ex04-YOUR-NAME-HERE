@@ -66,12 +66,13 @@ void Board::update_window(sf::RenderWindow& window)
 //===========================
 void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)
 {
-	
+	int size_object = window.getSize().x / toolbar.get_size();
 	for (int i = 0; i < toolbar.get_size(); i++)
 	{
 		sf::Sprite sprite;
 		sprite.setTexture(toolbar.get_object(i).getTexture());
-		sprite.setPosition(i * Entity::SIZE_PIXEL,0);
+		sprite.setScale(size_object*0.02, 1);
+		sprite.setPosition(i * size_object,0);
 		window.draw(sprite);
 	}
 }

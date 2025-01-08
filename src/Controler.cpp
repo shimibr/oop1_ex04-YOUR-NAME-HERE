@@ -30,7 +30,7 @@ void Controler::run()
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
 					sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-					Location mouseLoc(mousePosition.y / Entity::SIZE_PIXEL, mousePosition.x / Entity::SIZE_PIXEL);
+					Location mouseLoc(mousePosition.y / Entity::SIZE_PIXEL, mousePosition.x);
 
 					if (mouseLoc.row == 0)
 						toolbar_event(window, object, mouseLoc);
@@ -45,6 +45,7 @@ void Controler::run()
 //==========================================
 void Controler::toolbar_event(sf::RenderWindow& window, Object*& object, Location mouseLoc)
 {
+	mouseLoc.col /= (window.getSize().x / m_toolbar.get_size());
 	if (mouseLoc.col < m_toolbar.get_size())
 		object = &m_toolbar.get_object(mouseLoc.col);
 
@@ -62,6 +63,7 @@ void Controler::toolbar_event(sf::RenderWindow& window, Object*& object, Locatio
 //==========================================
 void Controler::board_event(sf::RenderWindow& window, Object*& object, Location mouseLoc)
 {
+	mouseLoc.col /= Entity::SIZE_PIXEL;
 	if (object->getType() == Entity::ROBOT)
 	{
 		robot_control(mouseLoc.row, mouseLoc.col, m_toolbar.get_object(0));

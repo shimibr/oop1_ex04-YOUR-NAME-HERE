@@ -17,4 +17,5 @@ private:
     void loading_default_buttons();
 
     std::vector<Object> m_objects;
+   
 };
