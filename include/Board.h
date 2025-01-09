@@ -14,17 +14,17 @@ class Board
 {
 public:
 	Board();
-	void print_window(sf::RenderWindow& window, Toolbar& toolbar, Object* object);
+	void print_window(sf::RenderWindow& window, Toolbar& toolbar, Object* object, const int sizeObjectToolbar);
 	void show_save_success_window()const;
 	void delete_object(const Location location);
 	void push_object(const Location location, Object* object);
 	void clear_objects();
 
 private:
-	void shadow_object(sf::RenderWindow& window, Object* object)const;
-	void update_window(sf::RenderWindow& window);
-	void print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)const;
-	void print_background(sf::RenderWindow& window)const;
+	void shadow_object(sf::RenderWindow& window, Object* object, const int sizeObjectToolbar)const;
+	void update_window(sf::RenderWindow& window, const int sizeObjectToolbar);
+	void print_toolbar(sf::RenderWindow& window, Toolbar& toolbar, const int sizeObject)const;
+	void print_background(sf::RenderWindow& window, const int sizeObjectToolbar)const;
 	
 	std::vector<Loc_Object> m_LocObjects;
 	sf::Texture m_texture;

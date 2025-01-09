@@ -31,7 +31,7 @@ void Board::clear_objects()
 	m_LocObjects.clear();
 }
 //====================================================
-void Board::shadow_object(sf::RenderWindow& window, Object* object)const
+void Board::shadow_object(sf::RenderWindow& window, Object* object, const int sizeObjectToolbar)const
 {
 		sf::Sprite sprite;
 		sprite.setTexture(object->getTexture());
@@ -40,49 +40,49 @@ void Board::shadow_object(sf::RenderWindow& window, Object* object)const
 		sf::Vector2i locMouse = sf::Mouse::getPosition(window);
 		if (locMouse.x < 0 || locMouse.x >= window.getSize().x || locMouse.y < 0 || locMouse.y >= window.getSize().y)
 			return;
-		else if (locMouse.y / Entity::SIZE_PIXEL == 0)
+		else if (locMouse.y / sizeObjectToolbar == 0)
 		{
 			sprite.setScale(0.7, 0.7);
 			sprite.setPosition(locMouse.x , locMouse.y - Entity::SIZE_PIXEL/2);
 		}
 		else
-		sprite.setPosition(locMouse.x - locMouse.x % Entity::SIZE_PIXEL, locMouse.y - locMouse.y % Entity::SIZE_PIXEL);
+		sprite.setPosition(locMouse.x - locMouse.x % Entity::SIZE_PIXEL, locMouse.y - (locMouse.y - sizeObjectToolbar) % Entity::SIZE_PIXEL);
 
 
 		window.draw(sprite);
 }
 //=======================================
-void Board::update_window(sf::RenderWindow& window)
+void Board::update_window(sf::RenderWindow& window, const int sizeObjectToolbar)
 {
 	for (int i = 0; i < m_LocObjects.size(); i++)
 	{
 		sf::Sprite sprite;
 		sprite.setTexture(m_LocObjects[i].object->getTexture());
-		sprite.setPosition(m_LocObjects[i].location.col * Entity::SIZE_PIXEL
-						, m_LocObjects[i].location.row * Entity::SIZE_PIXEL);
+		sprite.setPosition(m_LocObjects[i].location.col * Entity::SIZE_PIXEL,
+					((m_LocObjects[i].location.row-1) * Entity::SIZE_PIXEL) + sizeObjectToolbar);
 		window.draw(sprite);
 	}
 }
 //===========================
-void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)const
+void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar, const int sizeObject)const
 {
-	int size_object = window.getSize().x / toolbar.get_size();
+	//int size_object = window.getSize().x / toolbar.get_size();
 	for (int i = 0; i < toolbar.get_size(); i++)
 	{
 		sf::Sprite sprite;
 		sprite.setTexture(toolbar.get_object(i).getTexture());
-		sprite.setScale(size_object*0.02, 1);
-		sprite.setPosition(i * size_object,0);
+		sprite.setScale(sizeObject *0.02, sizeObject *0.02);
+		sprite.setPosition(i * sizeObject,0);
 		window.draw(sprite);
 	}
 }
 //======================================
-void Board::print_background(sf::RenderWindow& window)const
+void Board::print_background(sf::RenderWindow& window, const int sizeObjectToolbar)const
 {	
 	sf::Sprite sprite;
 	sprite.setTexture(m_texture);
 
-	for (int row = Entity::SIZE_PIXEL; row < window.getSize().y; row += Entity::SIZE_PIXEL)
+	for (int row = sizeObjectToolbar; row < window.getSize().y; row += Entity::SIZE_PIXEL)
 	{
 		for (int col = 0; col < window.getSize().x; col += Entity::SIZE_PIXEL)
 		{
@@ -92,15 +92,15 @@ void Board::print_background(sf::RenderWindow& window)const
 	}
 }
 //======================================
-void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar, Object* object)
+void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar, Object* object, const int sizeObjectToolbar)
 {
 	window.clear();
-	print_toolbar(window, toolbar);
-	print_background(window);
-	update_window(window);
+	print_toolbar(window, toolbar, sizeObjectToolbar);
+	print_background(window, sizeObjectToolbar);
+	update_window(window, sizeObjectToolbar);
 
 	if (object)
-	shadow_object(window,object);
+	shadow_object(window,object, sizeObjectToolbar);
 	
 	window.display();
 }
