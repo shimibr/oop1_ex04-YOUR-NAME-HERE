@@ -36,7 +36,7 @@ void Controler::run()
 					sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 					Location mouseLoc((mousePosition.y - sizeObjectToolbar + Entity::SIZE_PIXEL) / Entity::SIZE_PIXEL, mousePosition.x);
 
-					if (mouseLoc.row == 0)
+					if (mouseLoc.row <= 0 && mousePosition.y > 0)
 						toolbar_event(window, object, mouseLoc);
 
 					if (mousePosition.y >= sizeObjectToolbar && mousePosition.y < window.getSize().y && object)
