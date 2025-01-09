@@ -98,7 +98,10 @@ void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar, Object& obj
 	print_toolbar(window, toolbar);
 	print_background(window);
 	update_window(window);
+
+	if (&object)
 	shadow_object(window,object);
+	
 	window.display();
 }
 //=======================================

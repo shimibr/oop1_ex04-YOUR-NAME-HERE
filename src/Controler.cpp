@@ -13,7 +13,7 @@ void Controler::run()
 	{
 		loading_window(i, j);
 		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * Entity::SIZE_PIXEL, (j + 1) * Entity::SIZE_PIXEL), "Stage editing panel");
-		Object* object = &m_toolbar.get_object(0);
+		Object* object = nullptr;//&m_toolbar.get_object(0);
 
 		while (window.isOpen())
 		{
@@ -35,7 +35,7 @@ void Controler::run()
 					if (mouseLoc.row == 0)
 						toolbar_event(window, object, mouseLoc);
 
-					if (mousePosition.y >= Entity::SIZE_PIXEL && mousePosition.y < window.getSize().y)
+					if (mousePosition.y >= Entity::SIZE_PIXEL && mousePosition.y < window.getSize().y && object)
 						board_event(window, object, mouseLoc);
 				}
 			}
@@ -106,7 +106,7 @@ void Controler::oction_save(Object*& object)
 	m_loadFile.update_data();
 	m_board.show_save_success_window();
 	std::cout << "The file has been updated" << std::endl;
-	object = &m_toolbar.get_object(0);
+	object = nullptr;
 }
 //==========================================
 void Controler::delete_window()
