@@ -3,6 +3,7 @@
 #include "io.h"
 
 Toolbar::Toolbar() 
+    : m_sizeObject(0)
 {
     load_from_file("Toolbar.txt");
 }
@@ -34,5 +35,15 @@ Object& Toolbar::get_object(const int i)
 int Toolbar::get_size()const
 {
     return m_objects.size();
+}
+//==================================
+void Toolbar::set_sizeObject(const int sizeWindow)
+{
+	m_sizeObject = sizeWindow / m_objects.size();
+}
+//==================================
+int Toolbar::get_sizeObject() const
+{
+    return m_sizeObject;
 }
 //==================================

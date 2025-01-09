@@ -13,15 +13,15 @@ void Controler::run()
 	while (m_deleteWindow)
 	{
 		loading_window(sizeWindow);
-		int sizeObjectToolbar = (sizeWindow.col * Entity::SIZE_PIXEL) / m_toolbar.get_size();
+		m_toolbar.set_sizeObject(sizeWindow.col * Entity::SIZE_PIXEL);
 		Object* object = nullptr;
 
 		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(sizeWindow.col * Entity::SIZE_PIXEL,
-							(sizeWindow.row  * Entity::SIZE_PIXEL) + sizeObjectToolbar), "Stage editing panel");
+							(sizeWindow.row  * Entity::SIZE_PIXEL) + m_toolbar.get_sizeObject()), "Stage editing panel");
 
 		while (window.isOpen())
 		{
-			m_board.print_window(window, m_toolbar, object, sizeObjectToolbar);
+			m_board.print_window(window, m_toolbar, object);
 			sf::Event event;
 
 			while (window.pollEvent(event))
@@ -34,7 +34,8 @@ void Controler::run()
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
 					sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-					Location mouseLoc((mousePosition.y - sizeObjectToolbar + Entity::SIZE_PIXEL) / Entity::SIZE_PIXEL, mousePosition.x);
+					Location mouseLoc((mousePosition.y - m_toolbar.get_sizeObject() + Entity::SIZE_PIXEL) / Entity::SIZE_PIXEL
+									,mousePosition.x);
 
 					if (mouseLoc.row <= 0 && mousePosition.y > 0)
 						toolbar_event(window, object, mouseLoc);
