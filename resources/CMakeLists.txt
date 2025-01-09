@@ -1,4 +1,4 @@
-﻿configure_file ("reset.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+﻿configure_file ("reset.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("wall.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("door.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("guard.png" ${CMAKE_BINARY_DIR} COPYONLY)
