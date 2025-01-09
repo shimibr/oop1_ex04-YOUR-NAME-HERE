@@ -39,7 +39,7 @@ void Controler::run()
 					if (mouseLoc.row <= 0 && mousePosition.y > 0)
 						toolbar_event(window, object, mouseLoc);
 
-					if (mousePosition.y >= sizeObjectToolbar && mousePosition.y < window.getSize().y && object)
+					else if (mouseLoc.row > 0 && mousePosition.y < window.getSize().y && object)
 						board_event(window, object, mouseLoc);
 				}
 			}
