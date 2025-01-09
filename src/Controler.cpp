@@ -3,21 +3,20 @@
 #include <iostream>
 
 Controler::Controler()
-	:m_deleteWindow(true), m_robotLocation{ 0,0 }
+	:m_robotLocation{ 0,0 },m_sizeWindow{0,0}
 { }
 //===========================
 void Controler::run()
 {
-	Location sizeWindow;
 
-	while (m_deleteWindow)
+	while (true)
 	{
-		loading_window(sizeWindow);
-		m_toolbar.set_sizeObject(sizeWindow.col * Entity::SIZE_PIXEL);
+		loading_window();
+		m_toolbar.set_sizeObject(m_sizeWindow.col * Entity::SIZE_PIXEL);
 		Object* object = nullptr;
 
-		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(sizeWindow.col * Entity::SIZE_PIXEL,
-							(sizeWindow.row  * Entity::SIZE_PIXEL) + m_toolbar.get_sizeObject()), "Stage editing panel");
+		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(m_sizeWindow.col * Entity::SIZE_PIXEL,
+							(m_sizeWindow.row  * Entity::SIZE_PIXEL) + m_toolbar.get_sizeObject()), "Stage editing panel");
 
 		while (window.isOpen())
 		{
@@ -28,8 +27,8 @@ void Controler::run()
 			{
 				if (event.type == sf::Event::Closed)
 				{
-					m_deleteWindow = false;
 					window.close();
+					return;
 				}
 				else if (event.type == sf::Event::MouseButtonPressed)
 				{
@@ -76,23 +75,23 @@ void Controler::board_event(sf::RenderWindow& window, Object* object, Location m
 	init_Object(object, Location(mouseLoc.row, mouseLoc.col));
 }
 //==========================================
-void Controler::loading_window(Location& sizeWindow)
+void Controler::loading_window()
 {
 	if (!m_loadFile.get_is_file())
 	{
-		std::cout << "Please enter the window height: ";
-		std::cin >> sizeWindow.col;
 		std::cout << "Please enter the window width: ";
-		std::cin >> sizeWindow.row;
+		std::cin >> m_sizeWindow.col;
+		std::cout << "Please enter the window height: ";
+		std::cin >> m_sizeWindow.row;
 		std::cout << "excellent! The window is already up" << std::endl;
-		m_loadFile.set_size(sizeWindow);
+		m_loadFile.set_size(m_sizeWindow);
 	}
 	else
 	{
 		std::cout << "Please wait - we are already continuing the editing :) " << std::endl;
 
-		sizeWindow.row = m_loadFile.get_row_size();
-		sizeWindow.col = m_loadFile.get_col_size();
+		m_sizeWindow.row = m_loadFile.get_row_size();
+		m_sizeWindow.col = m_loadFile.get_col_size();
 		fill_from_file();
 	}
 		m_robotLocation = m_loadFile.get_loc_robot();
@@ -124,7 +123,7 @@ void Controler::delete_window()
 void Controler::fill_from_file()
 {
 	Char_Location type_location;
-	Object* object = &m_toolbar.get_object(0);
+	Object* object = nullptr;
 	while (m_loadFile.get_from_file(type_location))
 	{
 		for (int i = 0; i < m_toolbar.get_size(); i++)
