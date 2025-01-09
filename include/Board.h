@@ -14,14 +14,14 @@ class Board
 {
 public:
 	Board();
-	void print_window(sf::RenderWindow& window, Toolbar& toolbar, Object& object);
+	void print_window(sf::RenderWindow& window, Toolbar& toolbar, Object* object);
 	void show_save_success_window();
 	void delete_object(Location location);
 	void push_object(Location location, Object* object);
 	void clear_objects();
 
 private:
-	void shadow_object(sf::RenderWindow& window, Object& object);
+	void shadow_object(sf::RenderWindow& window, Object* object);
 	void update_window(sf::RenderWindow& window);
 	void print_toolbar(sf::RenderWindow& window, Toolbar& toolbar);
 	void print_background(sf::RenderWindow& window);

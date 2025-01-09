@@ -31,10 +31,10 @@ void Board::clear_objects()
 	m_LocObjects.clear();
 }
 //====================================================
-void Board::shadow_object(sf::RenderWindow& window, Object& object)
+void Board::shadow_object(sf::RenderWindow& window, Object* object)
 {
 		sf::Sprite sprite;
-		sprite.setTexture(object.getTexture());
+		sprite.setTexture(object->getTexture());
 		sprite.setColor(sf::Color(255, 255, 255, 150));
 		
 		sf::Vector2i locMouse = sf::Mouse::getPosition(window);
@@ -92,14 +92,14 @@ void Board::print_background(sf::RenderWindow& window)
 	}
 }
 //======================================
-void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar, Object& object)
+void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar, Object* object)
 {
 	window.clear();
 	print_toolbar(window, toolbar);
 	print_background(window);
 	update_window(window);
 
-	if (&object)
+	if (object)
 	shadow_object(window,object);
 	
 	window.display();

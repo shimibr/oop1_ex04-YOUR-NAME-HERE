@@ -17,7 +17,7 @@ void Controler::run()
 
 		while (window.isOpen())
 		{
-			m_board.print_window(window, m_toolbar, *object);
+			m_board.print_window(window, m_toolbar, object);
 			sf::Event event;
 
 			while (window.pollEvent(event))
@@ -61,12 +61,12 @@ void Controler::toolbar_event(sf::RenderWindow& window, Object*& object, Locatio
 	}
 }
 //==========================================
-void Controler::board_event(sf::RenderWindow& window, Object*& object, Location mouseLoc)
+void Controler::board_event(sf::RenderWindow& window, Object* object, Location mouseLoc)
 {
 	mouseLoc.col /= Entity::SIZE_PIXEL;
 	if (object->getType() == Entity::ROBOT)
 	{
-		robot_control(mouseLoc.row, mouseLoc.col, m_toolbar.get_object(0));
+		robot_control(mouseLoc.row, mouseLoc.col, &m_toolbar.get_object(0));
 	}
 	init_Object(object, Location(mouseLoc.row, mouseLoc.col));
 }
@@ -93,10 +93,10 @@ void Controler::loading_window(int& i, int& j)
 		m_robotLocation = m_loadFile.get_loc_robot();
 }
 //================================================
-void Controler::robot_control(const int row, const int col, Object& Tdelete)
+void Controler::robot_control(const int row, const int col, Object* Tdelete)
 {
 	if (m_loadFile.check_if_robot(Location(m_robotLocation.row - 1, m_robotLocation.col)))
-		init_Object(&Tdelete, m_robotLocation);
+		init_Object(Tdelete, m_robotLocation);
 
 	m_robotLocation = Location(row, col);
 }
