@@ -39,6 +39,6 @@ void Object::loadTexture()
 	else if (m_type == Entity::SAVE)
 		m_texture.loadFromFile("save.png");
 	else if (m_type == Entity::CLEAN_BOARD)
-		m_texture.loadFromFile("save.png");
+		m_texture.loadFromFile("reset.jpg");
 
 }
