@@ -7,7 +7,7 @@ Board::Board()
 	m_texture.loadFromFile("background.png");
 }
 //=========================================
-void Board::delete_object(Location location)
+void Board::delete_object(const Location location)
 {
 	for (auto it = m_LocObjects.begin(); it != m_LocObjects.end(); ++it)
 	{
@@ -19,7 +19,7 @@ void Board::delete_object(Location location)
 	}
 }
 //====================================================
-void Board::push_object(Location location, Object* object)
+void Board::push_object(const Location location, Object* object)
 {
 	delete_object(location);
 	Loc_Object tamp(location, object);

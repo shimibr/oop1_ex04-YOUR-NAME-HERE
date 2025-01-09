@@ -16,8 +16,8 @@ public:
 	Board();
 	void print_window(sf::RenderWindow& window, Toolbar& toolbar, Object* object);
 	void show_save_success_window()const;
-	void delete_object(Location location);
-	void push_object(Location location, Object* object);
+	void delete_object(const Location location);
+	void push_object(const Location location, Object* object);
 	void clear_objects();
 
 private:

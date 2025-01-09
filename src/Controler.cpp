@@ -8,11 +8,12 @@ Controler::Controler()
 //===========================
 void Controler::run()
 {
-	int i, j;
+	Location sizeWindow;
 	while (m_deleteWindow)
 	{
-		loading_window(i, j);
-		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * Entity::SIZE_PIXEL, (j + 1) * Entity::SIZE_PIXEL), "Stage editing panel");
+		loading_window(sizeWindow);
+		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(sizeWindow.col * Entity::SIZE_PIXEL,
+							(sizeWindow.row + 1) * Entity::SIZE_PIXEL), "Stage editing panel");
 		Object* object = nullptr;
 
 		while (window.isOpen())
@@ -71,23 +72,23 @@ void Controler::board_event(sf::RenderWindow& window, Object* object, Location m
 	init_Object(object, Location(mouseLoc.row, mouseLoc.col));
 }
 //==========================================
-void Controler::loading_window(int& i, int& j)
+void Controler::loading_window(Location& sizeWindow)
 {
 	if (!m_loadFile.get_is_file())
 	{
 		std::cout << "Please enter the window height: ";
-		std::cin >> i;
+		std::cin >> sizeWindow.col;
 		std::cout << "Please enter the window width: ";
-		std::cin >> j;
+		std::cin >> sizeWindow.row;
 		std::cout << "excellent! The window is already up" << std::endl;
-		m_loadFile.set_size(Location(j, i));
+		m_loadFile.set_size(sizeWindow);
 	}
 	else
 	{
 		std::cout << "Please wait - we are already continuing the editing :) " << std::endl;
 
-		j = m_loadFile.get_row_size();
-		i = m_loadFile.get_col_size();
+		sizeWindow.row = m_loadFile.get_row_size();
+		sizeWindow.col = m_loadFile.get_col_size();
 		fill_from_file();
 	}
 		m_robotLocation = m_loadFile.get_loc_robot();

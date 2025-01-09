@@ -14,7 +14,7 @@ private:
     void delete_window();
     void fill_from_file();
     void init_Object(Object* object, Location location);
-    void loading_window(int &i, int &j);
+    void loading_window(Location& sizeWindow);
 	void robot_control(const int row, const int col, Object* Tdelete);
     void oction_save(Object*& object);
 	void toolbar_event(sf::RenderWindow& window, Object*& object, Location mouseLoc);
