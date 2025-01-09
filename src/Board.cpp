@@ -31,7 +31,7 @@ void Board::clear_objects()
 	m_LocObjects.clear();
 }
 //====================================================
-void Board::shadow_object(sf::RenderWindow& window, Object* object)
+void Board::shadow_object(sf::RenderWindow& window, Object* object)const
 {
 		sf::Sprite sprite;
 		sprite.setTexture(object->getTexture());
@@ -64,7 +64,7 @@ void Board::update_window(sf::RenderWindow& window)
 	}
 }
 //===========================
-void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)
+void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)const
 {
 	int size_object = window.getSize().x / toolbar.get_size();
 	for (int i = 0; i < toolbar.get_size(); i++)
@@ -77,7 +77,7 @@ void Board::print_toolbar(sf::RenderWindow& window, Toolbar& toolbar)
 	}
 }
 //======================================
-void Board::print_background(sf::RenderWindow& window)
+void Board::print_background(sf::RenderWindow& window)const
 {	
 	sf::Sprite sprite;
 	sprite.setTexture(m_texture);
@@ -105,7 +105,7 @@ void Board::print_window(sf::RenderWindow& window, Toolbar& toolbar, Object* obj
 	window.display();
 }
 //=======================================
-void Board::show_save_success_window()
+void Board::show_save_success_window()const
 {
 	sf::RenderWindow successWindow(sf::VideoMode(300, 150), "System message");
 

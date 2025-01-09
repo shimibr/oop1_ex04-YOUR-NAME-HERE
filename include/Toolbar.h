@@ -9,7 +9,7 @@ class Toolbar
 public:
     Toolbar();
     Object& get_object(const int i) ;
-    int get_size();
+    int get_size()const;
     
 
 private:

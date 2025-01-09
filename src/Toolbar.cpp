@@ -31,7 +31,7 @@ Object& Toolbar::get_object(const int i)
     return m_objects[i];
 }
 //==================================
-int Toolbar::get_size()
+int Toolbar::get_size()const
 {
     return m_objects.size();
 }

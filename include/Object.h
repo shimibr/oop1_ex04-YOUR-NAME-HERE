@@ -9,7 +9,7 @@ public:
 	Object();
 	Object(char type);
 	sf::Texture& getTexture();
-	char getType();
+	char getType()const;
 	void loadTexture();
 
 private:

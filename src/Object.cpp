@@ -17,7 +17,7 @@ sf::Texture& Object::getTexture()
 	return m_texture;
 }
 //=============================
-char Object::getType()
+char Object::getType()const
 {
 	return m_type;
 }

@@ -13,7 +13,7 @@ void Controler::run()
 	{
 		loading_window(i, j);
 		sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(i * Entity::SIZE_PIXEL, (j + 1) * Entity::SIZE_PIXEL), "Stage editing panel");
-		Object* object = nullptr;//&m_toolbar.get_object(0);
+		Object* object = nullptr;
 
 		while (window.isOpen())
 		{
